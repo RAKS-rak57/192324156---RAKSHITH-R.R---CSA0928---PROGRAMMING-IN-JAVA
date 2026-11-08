@@ -1,0 +1,21 @@
+$ java -cp out Task09Demo
+=== Abstract class: template method + abstract hook ===
+Car fee(130) = 90.0
+
+=== Interfaces: multiple capabilities ===
+ElectricCar is a Vehicle: true, Chargeable: true, Comparable: true
+chargingFee(10 kWh)         = 120.0
+chargingFeeWithGst(10 kWh)  = 141.6   (default method, written once in the interface)
+Chargeable.isValidKwh(250)  = false   (static interface method)
+Guest owes Rs 90.0
+Asha owes Rs 0.0
+sorted via Comparable: TN01, TN09
+
+=== Alternative design (Vehicle = interface, Chargeable = abstract class) ===
+CarI fee(130) = 90.0, ElectricCarI fee(130) = 90.0, charge(10) = 120.0
+Works, but: regNo is duplicated in every class, no constructor is shared, ElectricCarI is NOT a CarI,
+and any class that needs Chargeable can no longer extend another class. See negative/ for the compiler errors.
+
+time per call (ns): abstract-class method = 0.63, interface default method = 0.73 (sink=1)
+Both are O(1) per call. Space per object: abstract class = 1 regNo field in the one superclass;
+interface version = 1 regNo field in EACH implementing class (same bytes per object, but the field and constructor code are repeated).

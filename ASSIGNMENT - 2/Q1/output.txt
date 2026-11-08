@@ -1,0 +1,79 @@
+=== Q1 : Measured workloads (average of 5 runs) ===
+
+W1 short tickets : 1000 tickets x 10 fields
+Approach          Time (ms)     Alloc (MB)    Used before     Used after     Est. Strings
+String +              0.295           1.15         1.6 MB         2.7 MB            10000
+StringBuilder         0.249           0.52         1.6 MB         2.2 MB             2000
+StringBuffer          0.281           0.53         1.6 MB         2.2 MB             2000
+String.join           0.176           0.23         1.5 MB         1.9 MB             2000
+StringJoiner          2.010           0.34         1.5 MB         1.9 MB             2000
+
+W2 normal tickets : 10000 tickets x 50 fields
+Approach          Time (ms)     Alloc (MB)    Used before     Used after     Est. Strings
+String +             20.124         206.76         1.5 MB         3.6 MB           500000
+StringBuilder         6.779          30.98         1.5 MB        15.8 MB            20000
+StringBuffer          7.646          31.05         1.5 MB        15.9 MB            20000
+String.join           3.725           9.92         1.5 MB        11.7 MB            20000
+StringJoiner          7.330          13.43         1.5 MB        15.2 MB            20000
+
+W3 group booking : 20 tickets x 5000 fields
+Approach          Time (ms)     Alloc (MB)    Used before     Used after     Est. Strings
+String +            363.503        4175.26         1.9 MB        16.4 MB           100000
+StringBuilder         1.332           7.32         1.9 MB         9.3 MB               40
+StringBuffer          1.631           7.32         1.9 MB         9.2 MB               40
+String.join           0.776           2.07         1.9 MB         3.9 MB               40
+StringJoiner          2.486           2.94         1.9 MB         4.8 MB               40
+
+=== Scaling: time (ms) to build ONE ticket with n fields (avg of 5) ===
+       n     String +  StringBuilder   StringBuffer         join       joiner
+     500        0.183          0.008          0.008        0.004        0.012
+    1000        1.669          0.010          0.012        0.008        0.021
+    2000        4.215          0.026          0.024        0.013        0.045
+    4000       12.581          0.042          0.052        0.030        0.088
+    8000       48.870          0.088          0.100        0.061        0.178
+   16000      189.302          0.224          0.159        0.078        0.217
+   32000      795.838          0.707          0.662        0.370        0.885
+
+=== Shared booking log: 4 threads x 50,000 appends (expected length = 4 x 50000 x 6) ===
+Trial 1  StringBuilder  expected=1200000 actual=1200000 exceptions=0
+Trial 1  StringBuffer   expected=1200000 actual=1200000 exceptions=0
+Trial 2  StringBuilder  expected=1200000 actual=1200000 exceptions=0
+Trial 2  StringBuffer   expected=1200000 actual=1200000 exceptions=0
+Trial 3  StringBuilder  expected=1200000 actual=1200000 exceptions=0
+Trial 3  StringBuffer   expected=1200000 actual=1200000 exceptions=0
+Trial 4  StringBuilder  expected=1200000 actual=1200000 exceptions=0
+Trial 4  StringBuffer   expected=1200000 actual=1200000 exceptions=0
+Trial 5  StringBuilder  expected=1200000 actual=1199982 exceptions=3
+Trial 5  StringBuffer   expected=1200000 actual=1200000 exceptions=0
+Trial 6  StringBuilder  expected=1200000 actual=1200000 exceptions=0
+Trial 6  StringBuffer   expected=1200000 actual=1200000 exceptions=0
+Trial 7  StringBuilder  expected=1200000 actual=1200000 exceptions=0
+Trial 7  StringBuffer   expected=1200000 actual=1200000 exceptions=0
+Trial 8  StringBuilder  expected=1200000 actual=1200000 exceptions=0
+Trial 8  StringBuffer   expected=1200000 actual=1200000 exceptions=0
+Trial 9  StringBuilder  expected=1200000 actual=1200000 exceptions=0
+Trial 9  StringBuffer   expected=1200000 actual=1200000 exceptions=0
+Trial 10  StringBuilder  expected=1200000 actual=1200000 exceptions=0
+Trial 10  StringBuffer   expected=1200000 actual=1200000 exceptions=0
+Trial 11  StringBuilder  expected=1200000 actual=1200000 exceptions=0
+Trial 11  StringBuffer   expected=1200000 actual=1200000 exceptions=0
+Trial 12  StringBuilder  expected=1200000 actual=1199988 exceptions=2
+Trial 12  StringBuffer   expected=1200000 actual=1200000 exceptions=0
+Trial 13  StringBuilder  expected=1200000 actual=1200000 exceptions=0
+Trial 13  StringBuffer   expected=1200000 actual=1200000 exceptions=0
+Trial 14  StringBuilder  expected=1200000 actual=1200000 exceptions=0
+Trial 14  StringBuffer   expected=1200000 actual=1200000 exceptions=0
+Trial 15  StringBuilder  expected=1200000 actual=1200000 exceptions=0
+Trial 15  StringBuffer   expected=1200000 actual=1200000 exceptions=0
+Trial 16  StringBuilder  expected=1200000 actual=1200000 exceptions=0
+Trial 16  StringBuffer   expected=1200000 actual=1200000 exceptions=0
+Trial 17  StringBuilder  expected=1200000 actual=1199982 exceptions=3
+Trial 17  StringBuffer   expected=1200000 actual=1200000 exceptions=0
+Trial 18  StringBuilder  expected=1200000 actual=1200000 exceptions=0
+Trial 18  StringBuffer   expected=1200000 actual=1200000 exceptions=0
+Trial 19  StringBuilder  expected=1200000 actual=1200000 exceptions=0
+Trial 19  StringBuffer   expected=1200000 actual=1200000 exceptions=0
+Trial 20  StringBuilder  expected=1200000 actual=1200000 exceptions=0
+Trial 20  StringBuffer   expected=1200000 actual=1200000 exceptions=0
+
+(checksum 343406440 - printed only so the work is not optimised away)

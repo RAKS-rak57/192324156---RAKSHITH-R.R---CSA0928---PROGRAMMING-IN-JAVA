@@ -1,0 +1,12 @@
+$ cd .. && diff -rq Task11/src Task12/src | sort
+Files Task11/src/parking/app/Main.java and Task12/src/parking/app/Main.java differ
+Files Task11/src/parking/model/Vehicle.java and Task12/src/parking/model/Vehicle.java differ
+Files Task11/src/parking/model/Visitor.java and Task12/src/parking/model/Visitor.java differ
+Files Task11/src/parking/service/ParkingService.java and Task12/src/parking/service/ParkingService.java differ
+Files Task11/src/parking/service/VehicleFactory.java and Task12/src/parking/service/VehicleFactory.java differ
+Only in Task11/src/parking/app: LookupBenchmark.java
+Only in Task12/src/parking/app: Task12Tests.java
+Only in Task12/src/parking/model: DayPass.java
+Only in Task12/src/parking/model: DeliveryVan.java
+Only in Task12/src/parking/model: EBike.java
+Only in Task12/src/parking/model: Pass.java

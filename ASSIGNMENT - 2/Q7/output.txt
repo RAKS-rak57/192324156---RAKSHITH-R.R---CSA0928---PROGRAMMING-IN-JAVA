@@ -1,0 +1,27 @@
+=== E1. Correctness: do both designs serve patients in exactly the same order? ===
+Random trials: 300, patients served and compared: 40237, mismatches: 0
+Demo (wait limit 2) original : Meena(S1) Ravi(S3) Kumar(S1) Lata(S2) John(S3) Asha(S5)
+Demo (wait limit 2) redesign : Meena(S1) Ravi(S3) Kumar(S1) Lata(S2) John(S3) Asha(S5)
+
+=== E2. Original vs redesign: serve all n waiting patients (wait limit 500, 10 serves per time unit) ===
+       n Design                    time (ms)     examined (ops)  PQs created   alloc (MB) same order
+    1000 Original (rebuild PQ)         11.55             500500         1000          7.0       true
+    1000 Redesign (5 queues)            0.13               3043            0          0.0       true
+         speed-up of redesign = 87.7 times
+    2500 Original (rebuild PQ)         74.52            3126250         2500         43.1       true
+    2500 Redesign (5 queues)            0.96               7528            0          0.1       true
+         speed-up of redesign = 78.0 times
+    5000 Original (rebuild PQ)        406.11           12502500         5000        177.6       true
+    5000 Redesign (5 queues)            2.29              14892            0          0.1       true
+         speed-up of redesign = 177.5 times
+   10000 Original (rebuild PQ)       1302.82           50005000        10000        712.6       true
+   10000 Redesign (5 queues)            1.68              29801            0          0.3       true
+         speed-up of redesign = 776.6 times
+   20000 Original (rebuild PQ)       4622.79          200010000        20000       2762.7       true
+   20000 Redesign (5 queues)            0.92              64430            0          0.5       true
+         speed-up of redesign = 5048.7 times
+
+=== E3. Redesign alone on larger queues (original would take too long) ===
+         n    time (ms)   heads examined   ns per serve
+    100000        11.61           499986          116.1
+   1000000       108.16          4999983          108.2

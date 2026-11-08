@@ -1,0 +1,15 @@
+$ java -cp out Task01Demo
+=== Task 1 : objects vs parallel arrays ===
+n          objects (ns/search)    parallel (ns/search)  
+1000       2478                   2483                   (sink=1)
+10000      104857                 43316                  (sink=1)
+100000     422593                 213921                 (sink=1)
+
+Measured container memory per vehicle: objects ~ 32 bytes, parallel arrays ~ 16 bytes
+(objects: 12-16 byte header + 2 refs + long + owner ref, padded;  parallel: 2 refs + 1 long per index)
+keep-alive: 200000 200000 200000 200000
+
+Adding attribute 'owner':
+ objects  -> add one field to VehicleRecord (1 place changed, existing code untouched)
+ parallel -> add a 4th array AND update every add/remove/copy/shift routine (k+1 arrays kept in sync)
+ objects  demo: objs[5].owner = Priya

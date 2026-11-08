@@ -1,0 +1,10 @@
+size,structure,total_ms_for_100000_mixed_ops
+1000,ArrayList,908.079
+1000,LinkedList,28.873
+1000,ArrayDeque,8.275
+10000,ArrayList,1095.192
+10000,LinkedList,20.002
+10000,ArrayDeque,11.277
+50000,ArrayList,1769.401
+50000,LinkedList,29.166
+50000,ArrayDeque,14.516

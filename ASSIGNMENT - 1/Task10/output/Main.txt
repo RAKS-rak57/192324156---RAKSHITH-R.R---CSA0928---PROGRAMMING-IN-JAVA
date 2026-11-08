@@ -1,0 +1,39 @@
+$ java -cp out parking.app.Main
+=== Package structure ===
+parking.model   : ParkingRecord, EvParkingRecord, PublicRecord (data + rules)
+parking.service : RecordService (use cases)
+parking.app     : Main (entry point)
+
+=== Access modifiers used ===
+member                             modifier   reason
+ParkingRecord.regNo/floor/slot...  private    state can change only through validating methods
+getters / setters / bill()         public     the API other packages may call
+ratePerHourOrDefault()             protected  overridable by subclasses only
+isValidRegNo()                     (default)  helper visible inside parking.model only
+MAX_MINUTES                        private    internal rule, not part of the contract
+MAX_FLOORS                         public     constant other classes may read
+
+=== Validating setters protect the object ===
+setDurationMinutes(-5)    -> REJECTED: Duration cannot be negative: -5
+setDurationMinutes(130)   -> accepted
+setPosition(9, 3)         -> REJECTED: Invalid floor: 9
+setPosition(2, 14)        -> accepted
+setRegNo("hello")         -> REJECTED: Invalid registration number: hello
+state after the valid calls: ParkingRecord[TN01AB1111, F2-S14, 130 min, Rs 90.0]
+
+=== Service in another package uses only the public API ===
+ParkingRecord[TN02CD2222, F1-S4, 61 min, Rs 60.0]
+ParkingRecord[TN03EV3333, F-1-S-1, 130 min, Rs 90.0]
+
+=== Wrapper classes and autoboxing ===
+Integer 127  == 127  : true   (small values come from the Integer cache)
+Integer 1000 == 1000 : false  (two different objects -> == compares references!)
+Integer 1000 equals  : true   (always use equals() or intValue() for wrapper values)
+unboxing null Integer -> NullPointerException (e.g. a map.get() for a missing vehicle)
+autoboxing in a Map<String,Integer>: 45 minutes; cost: each Integer is an object (~16 bytes) instead of a 4-byte int
+
+=== Alternative: public fields, caller validates ===
+PublicRecord accepted: regNo=hello duration=-500 floor=99 fee=-1.0   <- invalid state, nothing stopped it
+The same duration check would have to be copied into EVERY caller that sets durationMinutes:
+  entry screen, exit screen, import tool, report fixer ... = n copies. Encapsulated: 1 copy (setDurationMinutes).
+Validation cost per update: O(1) in both designs (a couple of comparisons); only the number of places differs.

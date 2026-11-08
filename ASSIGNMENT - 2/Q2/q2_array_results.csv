@@ -1,0 +1,7 @@
+size,operation,plain_array_ms,ArrayList_ms
+10000,insert at front,17.797,1.288
+10000,insert in middle,13.421,0.269
+50000,insert at front,51.889,4.831
+50000,insert in middle,22.107,4.103
+200000,insert at front,127.194,21.432
+200000,insert in middle,83.102,10.519

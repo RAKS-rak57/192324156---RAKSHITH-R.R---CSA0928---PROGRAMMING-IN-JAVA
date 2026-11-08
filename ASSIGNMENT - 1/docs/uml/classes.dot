@@ -1,0 +1,22 @@
+digraph G { rankdir=BT; node [shape=record, fontname="Helvetica", fontsize=11, style=filled, fillcolor="#FFFFFF"]; edge [fontname="Helvetica", fontsize=9];
+Vehicle [label="{«abstract»\nVehicle|- regNo : String\l+ DAILY_CAP_HOURS : int (static final)\l|+ getRegNo() : String (final)\l# ratePerHour() : double (abstract)\l+ category() : String (abstract)\l+ calculateFee(minutes : int) : double\l+ equals(o : Object) : boolean\l+ hashCode() : int\l}", fillcolor="#E8F0FE"];
+TwoWheeler [label="{TwoWheeler|+ ratePerHour() : 10\l}"];
+Car [label="{Car|+ ratePerHour() : 30\l}"];
+ElectricCar [label="{ElectricCar|+ category() : String\l}"];
+Chargeable [label="{«interface»\nChargeable|+ RATE_PER_KWH : double = 12\l|+ chargingFee(kWh : int) : double (default)\l}", fillcolor="#FFF4D6"];
+User [label="{«abstract»\nUser|- name : String\l|+ isFeeExempt(on : LocalDate) : boolean (abstract)\l+ role() : String (abstract)\l}", fillcolor="#E8F0FE"];
+Student [label="{Student|- passExpiry : LocalDate\l|+ isFeeExempt(on)\l}"];
+Staff [label="{Staff|- passExpiry : LocalDate\l|+ isFeeExempt(on)\l}"];
+Visitor [label="{Visitor|+ isFeeExempt(on) : false\l}"];
+Ticket [label="{ParkingTicket (final)|- nextTicketNo : int (static)\l- ticketNo : int\l- floor, slot : int\l- entryTime : LocalDateTime\l|+ getTicketNo() : int\l}"];
+Receipt [label="{«record»\nReceipt|ticketNo, regNo, minutes,\lparkingFee, exempt, chargingFee\l|+ totalPayable() : double\l}"];
+Facility [label="{ParkingFacility|- slots : String[][]\l|+ allocate(regNo) : int[]\l+ release(floor, slot) : boolean\l+ freeSlots() : int\l}"];
+Service [label="{ParkingService|- active : ParkingTicket[]\l|+ enter(v, u, time) : ParkingTicket\l+ exit(regNo, time, kWh) : Receipt\l}"];
+Factory [label="{VehicleFactory|+ create(type, regNo) : Vehicle\l}"];
+TwoWheeler -> Vehicle [arrowhead=empty]; Car -> Vehicle [arrowhead=empty]; ElectricCar -> Car [arrowhead=empty];
+ElectricCar -> Chargeable [arrowhead=empty, style=dashed];
+Student -> User [arrowhead=empty]; Staff -> User [arrowhead=empty]; Visitor -> User [arrowhead=empty];
+Ticket -> Vehicle [dir=back, arrowtail=odiamond, label="1"]; Ticket -> User [dir=back, arrowtail=odiamond, label="1"];
+Service -> Facility [dir=back, arrowtail=diamond, label="1"]; Service -> Ticket [dir=back, arrowtail=odiamond, label="0..*"];
+Service -> Receipt [style=dashed, arrowhead=open, label="creates"]; Factory -> Vehicle [style=dashed, arrowhead=open, label="creates"];
+}

@@ -1,0 +1,36 @@
+$ java -cp out parking.app.Task12Tests
+| #  | Category | Test                                           | Expected                                   | Actual                                     | Result |
+|----|----------|------------------------------------------------|--------------------------------------------|--------------------------------------------|--------|
+|  1 | EBike    | 0 minutes is free                              | 0.0                                        | 0.0                                        | PASS |
+|  2 | EBike    | 1 minute = flat Rs 15                          | 15.0                                       | 15.0                                       | PASS |
+|  3 | EBike    | 10 hours = still Rs 15                         | 15.0                                       | 15.0                                       | PASS |
+|  4 | EBike    | 5 days = still Rs 15                           | 15.0                                       | 15.0                                       | PASS |
+|  5 | Van      | 10:00-12:00 = 2 peak h x Rs 60                 | 120.0                                      | 120.0                                      | PASS |
+|  6 | Van      | 18:00-19:00 = 1 off-peak h x Rs 30             | 30.0                                       | 30.0                                       | PASS |
+|  7 | Van      | 08:30-10:30 = 30 + 60 (straddles 09:00)        | 90.0                                       | 90.0                                       | PASS |
+|  8 | Van      | 16:30-17:30 = hour starts in window -> 60      | 60.0                                       | 60.0                                       | PASS |
+|  9 | Van      | 17:00-18:00 = starts at 17:00 -> off-peak 30   | 30.0                                       | 30.0                                       | PASS |
+| 10 | Van      | 09:00-10:00 (window start is inclusive)        | 60.0                                       | 60.0                                       | PASS |
+| 11 | Van      | Zero minutes                                   | 0.0                                        | 0.0                                        | PASS |
+| 12 | Van      | 20:00 -> 08:00 next day = 12 x 30              | 360.0                                      | 360.0                                      | PASS |
+| 13 | Van      | 24 h from 09:00 limited by daily cap           | 480.0                                      | 480.0                                      | PASS |
+| 14 | Van      | untimed calculateFee(130) uses car rate        | 90.0                                       | 90.0                                       | PASS |
+| 15 | Van      | Exit before entry rejected                     | IllegalArgumentException: Exit time is before entry time | IllegalArgumentException: Exit time is before entry time | PASS |
+| 16 | DayPass  | Visitor with pass for TODAY parks free         | 0.0                                        | 0.0                                        | PASS |
+| 17 | DayPass  | Pass bought for YESTERDAY does not apply       | 150.0                                      | 150.0                                      | PASS |
+| 18 | DayPass  | Pass does not waive charging (EV 10 kWh)       | 120.0                                      | 120.0                                      | PASS |
+| 19 | DayPass  | Visitor WITHOUT pass still pays                | 30.0                                       | 30.0                                       | PASS |
+| 20 | DayPass  | Monthly pass (Student) unchanged: free         | 0.0                                        | 0.0                                        | PASS |
+| 21 | Floors   | Total slots of 20+35+50+75+100                 | 280                                        | 280                                        | PASS |
+| 22 | Floors   | 21st vehicle goes to floor 1 slot 0            | [1, 0]                                     | [1, 0]                                     | PASS |
+| 23 | Floors   | 106th vehicle goes to floor 3 slot 0           | [3, 0]                                     | [3, 0]                                     | PASS |
+| 24 | Floors   | 280th vehicle takes the very last slot         | [4, 99]                                    | [4, 99]                                    | PASS |
+| 25 | Floors   | 281st vehicle -> full (null)                   | null                                       | null                                       | PASS |
+| 26 | Floors   | Release [4, 100] (one past the end)            | false                                      | false                                      | PASS |
+| 27 | Factory  | Unknown type still rejected                    | IllegalArgumentException: Unknown vehicle type: BUS | IllegalArgumentException: Unknown vehicle type: BUS | PASS |
+| 28 | Factory  | Lower-case 'van' accepted                      | DeliveryVan[TN11V1]                        | DeliveryVan[TN11V1]                        | PASS |
+| 29 | Future   | NEW type 'TRUCK' registered at run time        | Truck[TN88T8]                              | Truck[TN88T8]                              | PASS |
+| 30 | Future   | Truck 130 min = 3 h x Rs 50                    | 150.0                                      | 150.0                                      | PASS |
+| 31 | Day      | Hand total 120+15+90+0+60                      | 285.0                                      | 285.0                                      | PASS |
+
+Result: 31 / 31 new tests passed

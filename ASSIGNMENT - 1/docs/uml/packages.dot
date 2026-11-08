@@ -1,0 +1,6 @@
+digraph P { rankdir=LR; node [shape=record, fontname="Helvetica", fontsize=11, style=filled, fillcolor="#FFFFFF"];
+app [label="{parking.app|Main\lTestRunner\lLookupBenchmark\l}", fillcolor="#E8F0FE"];
+service [label="{parking.service|ParkingService\lParkingFacility\lVehicleFactory\l}", fillcolor="#E8F0FE"];
+model [label="{parking.model|Vehicle, TwoWheeler, Car, ElectricCar\lChargeable\lUser, Student, Staff, Visitor\lParkingTicket, Receipt\l}", fillcolor="#E8F0FE"];
+app -> service [label="uses"]; app -> model [label="uses"]; service -> model [label="uses"];
+}

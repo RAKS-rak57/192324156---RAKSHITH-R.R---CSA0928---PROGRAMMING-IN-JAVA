@@ -1,0 +1,17 @@
+digraph T { rankdir=BT; node [shape=record, fontname="Helvetica", fontsize=11, style=filled, fillcolor="#FFFFFF"]; edge [fontname="Helvetica", fontsize=9];
+Vehicle [label="{«abstract»\nVehicle  (MODIFIED: +1 overload)|+ calculateFee(minutes : int)\l+ calculateFee(in, out : LocalDateTime)  NEW\l# ratePerHour() (abstract)\l}", fillcolor="#FFE9C7"];
+Car [label="{Car|unchanged}"]; TwoWheeler [label="{TwoWheeler|unchanged}"]; ElectricCar [label="{ElectricCar|unchanged}"];
+EBike [label="{EBike  NEW|+ FLAT_FEE = 15\l+ calculateFee(minutes) : flat\l}", fillcolor="#D8F5D8"];
+Van [label="{DeliveryVan  NEW|+ calculateFee(in, out) : 2 x car rate\l  for hours starting 09:00-17:00\l}", fillcolor="#D8F5D8"];
+User [label="{«abstract»\nUser|unchanged}"]; Visitor [label="{Visitor  (MODIFIED)|- pass : Pass\l+ Visitor(name, Pass)\l}", fillcolor="#FFE9C7"];
+Student [label="{Student|unchanged}"]; Staff [label="{Staff|unchanged}"];
+Pass [label="{«interface»\nPass  NEW|+ validOn(day) : boolean\l+ name() : String\l}", fillcolor="#D8F5D8"]; DayPass [label="{DayPass  NEW|- validDate : LocalDate\l}", fillcolor="#D8F5D8"];
+Factory [label="{VehicleFactory  (MODIFIED)|- REGISTRY : Map\l+ register(type, maker)  NEW\l+ create(type, regNo)\l}", fillcolor="#FFE9C7"];
+Service [label="{ParkingService  (MODIFIED: 1 line)|calls calculateFee(in, out)\l}", fillcolor="#FFE9C7"];
+Facility [label="{ParkingFacility|String[][] jagged - unchanged\l}"];
+Car -> Vehicle [arrowhead=empty]; TwoWheeler -> Vehicle [arrowhead=empty]; ElectricCar -> Car [arrowhead=empty];
+EBike -> Vehicle [arrowhead=empty]; Van -> Car [arrowhead=empty];
+Student -> User [arrowhead=empty]; Staff -> User [arrowhead=empty]; Visitor -> User [arrowhead=empty];
+DayPass -> Pass [arrowhead=empty, style=dashed]; Visitor -> Pass [dir=back, arrowtail=odiamond, label="0..1"];
+Factory -> Vehicle [style=dashed, arrowhead=open]; Service -> Vehicle [style=dashed, arrowhead=open]; Service -> Facility [dir=back, arrowtail=diamond];
+}

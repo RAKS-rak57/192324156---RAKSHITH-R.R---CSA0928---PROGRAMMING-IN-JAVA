@@ -1,0 +1,16 @@
+$ for f in negative/*.java; do echo "### javac $f"; javac -d /tmp/neg $f 2>&1; done
+### javac negative/NoInterfaceInstance.java
+negative/NoInterfaceInstance.java:3: error: VehicleI is abstract; cannot be instantiated
+class UseIt { void f() { VehicleI v = new VehicleI(); } }
+                                      ^
+1 error
+### javac negative/NoInterfaceState.java
+negative/NoInterfaceState.java:3: error: cannot assign a value to static final variable regNo
+class Assign implements VehicleI { void set() { regNo = "Y"; } }
+                                                ^
+1 error
+### javac negative/NoMultipleClassInheritance.java
+negative/NoMultipleClassInheritance.java:4: error: '{' expected
+class ElectricCarX extends CarX, ChargeableA { }
+                               ^
+1 error

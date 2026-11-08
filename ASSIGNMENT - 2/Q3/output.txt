@@ -1,0 +1,37 @@
+=== Q3 : hashCode - equals contract experiments ===
+
+TEST 1 : every student scanned once, one card object scanned twice (same object)
+PREDICTION: size 3 for BadStudent and GoodStudent. Distinct students have different regNo, and the
+            repeated scan is the SAME object, so even the default identity hashCode is equal.
+OBSERVED  : BadStudent set size = 3, GoodStudent set size = 3
+
+TEST 2 : the same student scanned again at another gate (a NEW object each time)
+PREDICTION: BadStudent -> 3 (duplicate appears: equals says equal but hashCodes differ, so the
+            second object goes to a different bucket and equals() is never called).
+            GoodStudent -> 2.
+OBSERVED  : BadStudent set size = 3, GoodStudent set size = 2
+            Bad set contents : [192311002 Divya, 192311001 Arun, 192311001 Arun]
+            x.equals(y) = true   x.hashCode() = 1229416514 (bucket 5)   y.hashCode() = 2016447921 (bucket 1)
+            good: hashCode 822376295 and 822376295 -> same bucket 3
+            Bigger run (100 students x 10 scans = 1000 scans): Bad size = 1000, Good size = 100  (correct answer is 100)
+
+TEST 3a : change regNo AFTER the student is stored in the HashSet (GoodStudent, regNo not final)
+PREDICTION: contains(...) fails for both old and new regNo, and adding the new regNo gives size 2,
+            because the object sits in the bucket of the OLD hash but now has the NEW regNo.
+OBSERVED  : before change  size=1 contains(m)=true
+            after change   contains(m)=false  contains(new 192311010)=false  contains(new 192311099)=false
+            after adding another object with regNo 192311099: size=2 (same student twice!)
+
+TEST 3b : TreeSet whose compare() uses name only (not consistent with equals on regNo)
+PREDICTION: two DIFFERENT students with the same name 'Ravi' -> TreeSet keeps only 1 (size 1),
+            although equals() says they are different.
+OBSERVED  : r1.equals(r2) = false, TreeSet size = 1, contents = [192311020 Ravi]
+
+VERIFICATION of the corrected class (equals/hashCode contract checks)
+            all contract checks passed = true
+
+=== De-duplication of n scans (half are repeat scans) : time in ms, average of 5 runs ===
+     scans     unique      HashSet      TreeSet      HashMap
+     10000       5000         1.38         3.07         3.09
+    100000      50000        12.28        44.72        13.41
+   1000000     500000       183.42       341.37        91.77

@@ -1,0 +1,16 @@
+size,structure,put_ms,lookup_100000_ms,ns_per_lookup,iterate_ms,code_order_report_ms,added_order_report_ms,code_order_correct,added_order_correct
+1000,HashMap,0.074,4.421,44.2,0.042,0.233,2.424,true,true
+1000,TreeMap,0.240,32.268,322.7,0.064,0.047,1.436,true,true
+1000,LinkedHashMap,0.075,3.717,37.2,0.019,0.484,0.013,true,true
+1000,Hashtable,1.009,4.307,43.1,0.034,0.992,1.339,true,true
+1000,SortedArray+binarySearch,2.139,30.494,304.9,0.001,0.019,3.019,true,true
+20000,HashMap,3.051,3.669,36.7,1.188,16.775,11.016,true,true
+20000,TreeMap,20.105,71.711,717.1,4.067,3.147,8.874,true,true
+20000,LinkedHashMap,2.423,6.973,69.7,0.232,22.422,1.052,true,true
+20000,Hashtable,5.193,8.510,85.1,0.993,4.721,11.442,true,true
+20000,SortedArray+binarySearch,25.101,78.695,786.9,0.033,0.113,10.167,true,true
+500000,HashMap,74.754,10.090,100.9,38.596,219.944,205.585,true,true
+500000,TreeMap,777.876,172.816,1728.2,72.959,68.505,267.649,true,true
+500000,LinkedHashMap,58.680,10.261,102.6,17.247,511.076,32.133,true,true
+500000,Hashtable,43.103,13.561,135.6,49.734,268.251,203.670,true,true
+500000,SortedArray+binarySearch,632.913,199.918,1999.2,4.082,15.945,201.829,true,true

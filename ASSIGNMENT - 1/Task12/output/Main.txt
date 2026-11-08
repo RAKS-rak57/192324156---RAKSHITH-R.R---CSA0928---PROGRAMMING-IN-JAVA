@@ -1,0 +1,14 @@
+$ java -cp out parking.app.Main < input/commands.txt
+Facility created: 5 floors, 280 slots
+ENTER DeliveryVan[TN11V1] (Visitor) -> Ticket#1000[TN11V1 F0-S0 2026-11-07T10:00]
+ENTER EBike[TN12E1] (Visitor) -> Ticket#1001[TN12E1 F0-S1 2026-11-07T09:00]
+ENTER DeliveryVan[TN13V2] (Visitor) -> Ticket#1002[TN13V2 F0-S2 2026-11-07T08:30]
+ENTER Car[TN14C1] (Visitor (one-day pass 2026-11-07)) -> Ticket#1003[TN14C1 F0-S3 2026-11-07T09:00]
+ENTER Car[TN15C2] (Visitor) -> Ticket#1004[TN15C2 F0-S4 2026-11-07T09:00]
+line 9 ERROR (IllegalArgumentException): Unknown vehicle type: BUS
+EXIT  TN11V1 after 120 min: parking Rs 120.0, charging Rs 0.0 -> PAY Rs 120.0
+EXIT  TN12E1 after 150 min: parking Rs 15.0, charging Rs 0.0 -> PAY Rs 15.0
+EXIT  TN13V2 after 120 min: parking Rs 90.0, charging Rs 0.0 -> PAY Rs 90.0
+EXIT  TN14C1 after 300 min: parking Rs 150.0 (waived: pass), charging Rs 0.0 -> PAY Rs 0.0
+EXIT  TN15C2 after 120 min: parking Rs 60.0, charging Rs 0.0 -> PAY Rs 60.0
+SUMMARY: vehicles inside = 0, free slots = 280, collection today = Rs 285.0

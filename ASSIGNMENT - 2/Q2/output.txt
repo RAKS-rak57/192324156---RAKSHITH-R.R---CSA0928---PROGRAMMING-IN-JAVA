@@ -1,0 +1,48 @@
+=== Q2 : time per operation in microseconds (avg of 5 runs, 1000 ops each) ===
+
+Playlist size N = 10000
+Operation                 ArrayList     LinkedList     ArrayDeque
+add at end                    0.102          0.084          0.065
+insert at front               0.463          0.093          0.118
+insert in middle              1.199         17.652            n/a
+remove at front               0.971          0.948          0.055
+remove in middle              0.261          9.452            n/a
+get k-th (random)             0.102          5.842            n/a
+iterate whole list            0.003          0.197          0.091
+
+Playlist size N = 50000
+Operation                 ArrayList     LinkedList     ArrayDeque
+add at end                    0.073          0.072          0.069
+insert at front               5.597          0.075          0.552
+insert in middle              3.272         88.937            n/a
+remove at front               4.842          0.046          0.458
+remove in middle              2.369        102.395            n/a
+get k-th (random)             0.456         53.710            n/a
+iterate whole list            0.017          0.017          0.010
+
+Playlist size N = 200000
+Operation                 ArrayList     LinkedList     ArrayDeque
+add at end                    0.073          0.081          0.010
+insert at front              20.786          0.078          0.011
+insert in middle              9.408        696.137            n/a
+remove at front              18.679          0.080          0.001
+remove in middle              9.531        592.365            n/a
+get k-th (random)             0.166        392.564            n/a
+iterate whole list            0.003          0.028          0.008
+
+=== Up Next queue: 100,000 operations (addLast, addFirst, removeFirst) on a queue holding N songs ===
+         N  ArrayList(ms) LinkedList(ms) ArrayDeque(ms)
+      1000         908.08          28.87           8.27
+     10000        1095.19          20.00          11.28
+     50000        1769.40          29.17          14.52
+
+=== Plain array with manual shifting: 1000 inserts (ms) vs ArrayList ===
+         N Operation          Plain array (ms) ArrayList (ms)
+     10000 insert at front              17.797          1.288
+     10000 insert in middle             13.421          0.269
+     50000 insert at front              51.889          4.831
+     50000 insert in middle             22.107          4.103
+    200000 insert at front             127.194         21.432
+    200000 insert in middle             83.102         10.519
+
+(checksum 322012994750)

@@ -1,0 +1,40 @@
+$ java -cp out parking.app.TestRunner
+| #  | Category | Test                                           | Expected                                   | Actual                                     | Result |
+|----|----------|------------------------------------------------|--------------------------------------------|--------------------------------------------|--------|
+|  1 | Normal   | TwoWheeler enters -> first slot                | [0, 0]                                     | [0, 0]                                     | PASS |
+|  2 | Normal   | Car enters -> second slot                      | [0, 1]                                     | [0, 1]                                     | PASS |
+|  3 | Normal   | Ticket numbers are consecutive                 | true                                       | true                                       | PASS |
+|  4 | Normal   | TwoWheeler 90 min -> Rs 20                     | 20.0                                       | 20.0                                       | PASS |
+|  5 | Normal   | Slot freed -> next car gets [0, 0]             | [0, 0]                                     | [0, 0]                                     | PASS |
+|  6 | Normal   | Student with valid pass parks free             | 0.0                                        | 0.0                                        | PASS |
+|  7 | Normal   | Staff with EXPIRED pass pays 4 h x 30          | 120.0                                      | 120.0                                      | PASS |
+|  8 | Normal   | EV 121 min + 10 kWh = 90 + 120                 | 210.0                                      | 210.0                                      | PASS |
+|  9 | Normal   | Pass holder EV still pays charging             | 120.0                                      | 120.0                                      | PASS |
+| 10 | Boundary | Last free slot is allocated                    | [1, 0]                                     | [1, 0]                                     | PASS |
+| 11 | Boundary | Entry when full is refused                     | IllegalStateException: Parking facility is full | IllegalStateException: Parking facility is full | PASS |
+| 12 | Boundary | Zero-minute stay costs Rs 0                    | 0.0                                        | 0.0                                        | PASS |
+| 13 | Boundary | 1 minute = 1 started hour                      | 30.0                                       | 30.0                                       | PASS |
+| 14 | Boundary | 60 minutes (slab edge) = 1 h                   | 30.0                                       | 30.0                                       | PASS |
+| 15 | Boundary | 61 minutes (just over) = 2 h                   | 60.0                                       | 60.0                                       | PASS |
+| 16 | Boundary | 480 min = 8 h = daily cap reached              | 240.0                                      | 240.0                                      | PASS |
+| 17 | Boundary | 720 min limited by daily cap                   | 240.0                                      | 240.0                                      | PASS |
+| 18 | Boundary | 1440 min (exactly one day) = cap               | 240.0                                      | 240.0                                      | PASS |
+| 19 | Boundary | 1441 min = cap + 1 started hour                | 270.0                                      | 270.0                                      | PASS |
+| 20 | Boundary | Same-minute entry and exit                     | 0.0                                        | 0.0                                        | PASS |
+| 21 | Invalid  | Unknown vehicle type 'BUS'                     | IllegalArgumentException: Unknown vehicle type: BUS | IllegalArgumentException: Unknown vehicle type: BUS | PASS |
+| 22 | Invalid  | Duplicate registration number                  | IllegalStateException: Duplicate registration number: TN02B2 | IllegalStateException: Duplicate registration number: TN02B2 | PASS |
+| 23 | Invalid  | Release invalid floor 5                        | false                                      | false                                      | PASS |
+| 24 | Invalid  | Release negative slot                          | false                                      | false                                      | PASS |
+| 25 | Invalid  | Release an already-free slot                   | false                                      | false                                      | PASS |
+| 26 | Invalid  | Negative duration                              | IllegalArgumentException: Negative duration: -5 | IllegalArgumentException: Negative duration: -5 | PASS |
+| 27 | Invalid  | Exit of a vehicle that never entered           | IllegalStateException: No active ticket for GHOST1 | IllegalStateException: No active ticket for GHOST1 | PASS |
+| 28 | Invalid  | Exit before entry                              | IllegalArgumentException: Exit time is before entry time | IllegalArgumentException: Exit time is before entry time | PASS |
+| 29 | Invalid  | Blank registration number                      | IllegalArgumentException: Invalid registration number:  | IllegalArgumentException: Invalid registration number:  | PASS |
+| 30 | Invalid  | Charging a non-EV                              | IllegalArgumentException: Car[CAR5] cannot be charged | IllegalArgumentException: Car[CAR5] cannot be charged | PASS |
+| 31 | Object   | equals: Car vs ElectricCar same regNo          | true                                       | true                                       | PASS |
+| 32 | Object   | hashCode equal for equal vehicles              | true                                       | true                                       | PASS |
+| 33 | Day      | Hand total 20+0+0+30+210+240                   | 500.0                                      | 500.0                                      | PASS |
+| 34 | Day      | All six vehicles have left                     | 0                                          | 0                                          | PASS |
+| 35 | Day      | All slots free again (10 of 10)                | 10                                         | 10                                         | PASS |
+
+Result: 35 / 35 tests passed

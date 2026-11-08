@@ -1,0 +1,7 @@
+$ java -cp out AllocBenchmark
+Worst case: all slots full except the last one
+1 floor  x 20 slots    20       scan alloc+release =       6.1 ns   count+stack alloc+release =     7.6 ns   (sink=1)
+3 floors x 50 slots    150      scan alloc+release =      38.3 ns   count+stack alloc+release =     6.3 ns   (sink=1)
+5 floors x 100 slots   500      scan alloc+release =     220.8 ns   count+stack alloc+release =     5.6 ns   (sink=1)
+20 floors x 500 slots  10000    scan alloc+release =    2111.9 ns   count+stack alloc+release =    24.6 ns   (sink=1)
+50 floors x 2000 slots 100000   scan alloc+release =   23937.8 ns   count+stack alloc+release =    33.7 ns   (sink=1)

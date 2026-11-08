@@ -1,0 +1,21 @@
+$ for f in negative/*.java; do echo "### javac $f"; javac -d /tmp/neg $f 2>&1; done
+### javac negative/BadFinal.java
+negative/BadFinal.java:2: error: cannot assign a value to final variable x
+class A { public final String id() { return "A"; } private final int x = 1; void setX() { x = 2; } }
+                                                                                          ^
+negative/BadFinal.java:3: error: id() in B cannot override id() in A
+class B extends A { @Override public String id() { return "B"; } }
+                                            ^
+  overridden method is final
+2 errors
+### javac negative/BadOverrideAccess.java
+negative/BadOverrideAccess.java:3: error: fee(int) in C cannot override fee(int) in P
+class C extends P { @Override protected double fee(int m) { return m; } }
+                                               ^
+  attempting to assign weaker access privileges; was public
+1 error
+### javac negative/BadOverrideTypo.java
+negative/BadOverrideTypo.java:4: error: method does not override or implement a method from a supertype
+    @Override protected double ratePerHr() { return 10; }
+    ^
+1 error

@@ -1,0 +1,39 @@
+$ java -cp out Task05Demo
+=== 1. Instance counter with two facilities (WRONG) ===
+NORTH -> ticket 1000 for TN01AA1111
+SOUTH -> ticket 1000 for TN02BB2222
+NORTH -> ticket 1001 for TN03CC3333
+SOUTH -> ticket 1001 for TN04DD4444
+-> NORTH and SOUTH both issued 1000 and 1001: ticket numbers are reused across the campus.
+
+=== 2. Static counter (shared by all facilities) ===
+[static block] ParkingTicket class loaded, counter starts at 1000
+NORTH -> ticket 1000 for TN01AA1111
+SOUTH -> ticket 1001 for TN02BB2222
+NORTH -> ticket 1002 for TN03CC3333
+SOUTH -> ticket 1003 for TN04DD4444
+tickets issued so far (static getIssuedCount) = 4
+
+=== 3. Alternative: injected shared TicketIssuer ===
+NORTH -> ticket 1000 for TN01AA1111
+SOUTH -> ticket 1001 for TN02BB2222
+NORTH -> ticket 1002 for TN03CC3333
+
+=== 4. Static method ===
+isValidRegNo("TN01AB1111") = true
+isValidRegNo("hello")      = false
+
+=== 5. Passing and returning objects ===
+returned from method : Ticket#1004[TN07XY7777]
+after reassign(t)    : Ticket#1004[TN07XY7777]   (caller's reference unchanged: Java passes the reference BY VALUE)
+array after tamper   : CHANGED   (the shared object was modified)
+int after tamperInt  : 5   (primitive copied)
+
+=== 6. Life cycle: ticket becomes garbage after exit ===
+vehicle inside   : ticket reachable = true
+after exit + GC  : ticket collected = true   (eligible once no strong reference remains; collection timing is up to the JVM)
+
+=== 7. Space used by the counter ===
+static  counter: 1 int for the whole class, O(1) for k facilities
+instance counter: 1 int per facility object, O(k)
+tickets (n): O(n) in both designs

@@ -1,0 +1,30 @@
+$ java -cp out Task06Demo
+=== Constructor trace: new ElectricCar("TN09EV0001", 40) ===
+  [1] Vehicle constructor     : regNo = TN09EV0001
+  [2] Car constructor
+  [3] ElectricCar constructor : batteryKwh = 40
+  -> order of execution: Vehicle (top) -> Car -> ElectricCar (bottom)
+
+=== Constructor trace: new TwoWheeler("TN01A1") ===
+  [1] Vehicle constructor     : regNo = TN01A1
+  [2] TwoWheeler constructor
+
+=== Inherited and specialised members ===
+TwoWheeler TN01A1 @ Rs 10.0/h
+ElectricCar TN09EV0001 @ Rs 30.0/h (EV, 40 kWh)
+ElectricCar inherits getRegNo() from Vehicle: TN09EV0001
+fee(130 min): bike = 30.0, ev = 90.0
+
+=== Users ===
+Student Asha fee-exempt on 2026-11-07 = true
+Staff Dr. Rao fee-exempt on 2026-11-07 = false
+Visitor Guest fee-exempt on 2026-11-07 = false
+
+=== Alternative: composition ===
+Car TN02B2 fee(130) = 90.0
+TwoWheeler TN01A1 fee(130) = 30.0
+Van TN07V7 fee(130) = 135.0   (new type = new DATA, no new class)
+
+Fee computation per vehicle (ns): inheritance = 2.14, composition = 0.53 (sink=1)
+Space per vehicle: inheritance = 1 object (regNo ref); composition = 1 object (regNo ref + type ref), VehicleType objects are shared.
+Both: fee computation O(1).

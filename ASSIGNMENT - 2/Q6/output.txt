@@ -1,0 +1,42 @@
+=== 1. Hand-checked instance (8 patients) ===
+Arrival order (plain FIFO queue)       : [Arjun(S3), Bala(S2), Chitra(S5), Devi(S1), Esha(S3), Farid(S2), Gita(S1), Hari(S4)]
+System.out.println(priorityQueue)      : [Devi(S1), Bala(S2), Gita(S1), Arjun(S3), Esha(S3), Chitra(S5), Farid(S2), Hari(S4)]   <- heap array order, NOT treatment order
+Treatment order using poll()           : Devi Gita Bala Farid Arjun Esha Hari Chitra
+Hand-worked expected order             : Devi Gita Bala Farid Arjun Esha Hari Chitra
+Program matches hand calculation       : true
+Comparator WITHOUT arrival counter     : Devi(S1) Gita(S1) Bala(S2) Farid(S2) Esha(S3) Arjun(S3) Hari(S4) Chitra(S5)   <- equal severities not guaranteed in arrival order
+
+=== 2. Growth investigation: PriorityQueue cost per operation (average of 30 runs, 5 for n=1,000,000) ===
+PREDICTION: add = O(log n), poll = O(log n); going from 1,000 to 1,000,000 patients (x1000) should raise the cost per
+            operation only slightly (log2 grows from 10 to 20, i.e. about x2) plus some cache effects.
+         n        add ns/op       poll ns/op    all adds ms   all polls ms
+      1000             20.7            112.0           0.02           0.11
+     10000             28.2            192.8           0.28           1.93
+    100000             32.8            246.7           3.28          24.67
+   1000000             37.6            425.0          37.57         425.00
+
+=== 3. Starvation and the aging (fair) rule ===
+Scenario: a severity-5 patient arrives at time 0. At every time unit one new patient (severity 1) arrives and
+one patient is served. The queue starts with 10 waiting severity-1 patients, so it never becomes empty.
+(worst case: every new arrival is severity 1, i.e. only critical patients keep arriving)
+Plain PriorityQueue : severity-5 patient served at time NEVER (still waiting after 2000 time units)
+Fair rule (aging, limit 50) : severity-5 patient served at time 200   (expected: 4 x 50 = 200 units, when his effective severity has dropped from 5 to 1 and his earlier arrival wins)
+
+=== 4. Deployment: a city hospital with 5,000 patients a day (worst case: all 5,000 waiting together) ===
+Plain PriorityQueue : admit + serve 5,000 patients = 7.48 ms in total (1.496 microseconds per patient)
+Fair (rebuild) rule : admit + serve 5,000 patients = 274.79 ms in total (54.958 microseconds per patient)
+
+=== 5. Alternative designs: admit n patients, then serve all n (average of 5 runs, ms) ===
+PREDICTION: PriorityQueue O(log n) each; sorted LinkedList admit O(n) (serve O(1)); five queues O(1) each.
+       n Design                      admit all      serve all
+    1000 PriorityQueue                   0.061          0.202
+    1000 Sorted LinkedList               0.663          0.008
+    1000 Five FIFO queues                0.038          0.011
+    5000 PriorityQueue                   1.027          0.995
+    5000 Sorted LinkedList              63.728          1.317
+    5000 Five FIFO queues                0.559          0.018
+   20000 PriorityQueue                   0.786          5.385
+   20000 Sorted LinkedList             656.180          0.198
+   20000 Five FIFO queues                0.119          0.077
+
+(checksum 29861400)

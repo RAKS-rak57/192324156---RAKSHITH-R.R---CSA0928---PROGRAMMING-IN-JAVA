@@ -1,0 +1,16 @@
+workload,tickets,fields,approach,avg_time_ms,allocated_MB,used_before_MB,used_after_MB,est_objects,est_chars_copied_per_ticket
+W1 short tickets,1000,10,String +,0.295,1.15,1.6,2.7,10000,770
+W1 short tickets,1000,10,StringBuilder,0.249,0.52,1.6,2.2,2000,420
+W1 short tickets,1000,10,StringBuffer,0.281,0.53,1.6,2.2,2000,420
+W1 short tickets,1000,10,String.join,0.176,0.23,1.5,1.9,2000,420
+W1 short tickets,1000,10,StringJoiner,2.010,0.34,1.5,1.9,2000,420
+W2 normal tickets,10000,50,String +,20.124,206.76,1.5,3.6,500000,19490
+W2 normal tickets,10000,50,StringBuilder,6.779,30.98,1.5,15.8,20000,2340
+W2 normal tickets,10000,50,StringBuffer,7.646,31.05,1.5,15.9,20000,2340
+W2 normal tickets,10000,50,String.join,3.725,9.92,1.5,11.7,20000,2340
+W2 normal tickets,10000,50,StringJoiner,7.330,13.43,1.5,15.2,20000,2340
+W3 group booking,20,5000,String +,363.503,4175.26,1.9,16.4,100000,218688055
+W3 group booking,20,5000,StringBuilder,1.332,7.32,1.9,9.3,40,265110
+W3 group booking,20,5000,StringBuffer,1.631,7.32,1.9,9.2,40,265110
+W3 group booking,20,5000,String.join,0.776,2.07,1.9,3.9,40,265110
+W3 group booking,20,5000,StringJoiner,2.486,2.94,1.9,4.8,40,265110

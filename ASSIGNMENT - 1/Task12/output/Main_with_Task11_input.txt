@@ -1,0 +1,18 @@
+$ java -cp out parking.app.Main < ../Task11/input/commands.txt
+Facility created: 3 floors, 10 slots
+ENTER TwoWheeler[TN01A1] (Visitor) -> Ticket#1000[TN01A1 F0-S0 2026-11-07T08:00]
+ENTER Car[TN02B2] (Student, monthly pass) -> Ticket#1001[TN02B2 F0-S1 2026-11-07T08:00]
+ENTER Car[TN03C3] (Visitor) -> Ticket#1002[TN03C3 F1-S0 2026-11-07T10:00]
+ENTER Car[TN04D4] (Visitor) -> Ticket#1003[TN04D4 F1-S1 2026-11-07T09:00]
+ENTER ElectricCar[TN05E5] (Visitor) -> Ticket#1004[TN05E5 F1-S2 2026-11-07T09:00]
+ENTER Car[TN06F6] (Visitor) -> Ticket#1005[TN06F6 F2-S0 2026-11-07T00:00]
+line 10 ERROR (IllegalArgumentException): Unknown vehicle type: BUS
+line 11 ERROR (IllegalStateException): Duplicate registration number: TN02B2
+line 12 ERROR (IllegalStateException): No active ticket for GHOST1
+EXIT  TN01A1 after 90 min: parking Rs 20.0, charging Rs 0.0 -> PAY Rs 20.0
+EXIT  TN02B2 after 540 min: parking Rs 240.0 (waived: pass), charging Rs 0.0 -> PAY Rs 0.0
+EXIT  TN03C3 after 0 min: parking Rs 0.0, charging Rs 0.0 -> PAY Rs 0.0
+EXIT  TN04D4 after 60 min: parking Rs 30.0, charging Rs 0.0 -> PAY Rs 30.0
+EXIT  TN05E5 after 121 min: parking Rs 90.0, charging Rs 120.0 -> PAY Rs 210.0
+EXIT  TN06F6 after 720 min: parking Rs 240.0, charging Rs 0.0 -> PAY Rs 240.0
+SUMMARY: vehicles inside = 0, free slots = 10, collection today = Rs 500.0

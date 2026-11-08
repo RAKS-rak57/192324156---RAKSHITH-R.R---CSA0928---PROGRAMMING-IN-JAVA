@@ -1,0 +1,9 @@
+digraph H { rankdir=BT; node [shape=record, fontname="Helvetica", fontsize=11, style=filled, fillcolor="#FFFFFF"]; edge [fontname="Helvetica", fontsize=9];
+Vehicle [label="{«abstract»\nVehicle|- regNo : String\l|# Vehicle(regNo)\l# ratePerHour() (abstract)\l+ calculateFee(int)\l}", fillcolor="#E8F0FE"];
+TwoWheeler [label="{TwoWheeler|TwoWheeler(regNo) : super(regNo)\l+ ratePerHour() = 10\l}"];
+Car [label="{Car|Car(regNo) : super(regNo)\l+ ratePerHour() = 30\l}"];
+ElectricCar [label="{ElectricCar|ElectricCar(regNo) : super(regNo)\l+ chargingFee(kWh)\l}"];
+Chargeable [label="{«interface»\nChargeable|+ chargingFee(kWh)\l}", fillcolor="#FFF4D6"];
+TwoWheeler -> Vehicle [arrowhead=empty, label="hierarchical"]; Car -> Vehicle [arrowhead=empty];
+ElectricCar -> Car [arrowhead=empty, label="multilevel"]; ElectricCar -> Chargeable [arrowhead=empty, style=dashed, label="implements"];
+}

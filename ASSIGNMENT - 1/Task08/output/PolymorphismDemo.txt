@@ -1,0 +1,36 @@
+$ java -cp out poly.PolymorphismDemo
+=== 1. Compile-time polymorphism: overloaded calculateFee ===
+calculateFee(130)                              -> int version      = 90.0
+calculateFee(LocalTime 09:00, LocalTime 11:10) -> LocalTime version = 90.0
+calculateFee(LocalTime 22:00, LocalTime 01:00) -> overnight         = 90.0
+The compiler picks the overload from the NUMBER and STATIC TYPES of the arguments, before the program runs.
+calculateFee((byte) 5) widens byte -> int and picks the int version: 30.0
+
+=== 2. Upcasting: one array, many types ===
+declared type Vehicle, actual type TwoWheeler
+declared type Vehicle, actual type Car
+declared type Vehicle, actual type ElectricCar
+
+=== 3. Dynamic method dispatch trace ===
+call: v.calculateFee(130)   declared type = Vehicle, actual type = TwoWheeler
+   calculateFee(int) is not overridden -> Vehicle.calculateFee runs, and inside it:
+      this.ratePerHour() is resolved at RUN TIME from the actual object:
+      [executing] TwoWheeler.ratePerHour()
+   result = Rs 30.0
+call: v.calculateFee(130)   declared type = Vehicle, actual type = Car
+   calculateFee(int) is not overridden -> Vehicle.calculateFee runs, and inside it:
+      this.ratePerHour() is resolved at RUN TIME from the actual object:
+      [executing] Car.ratePerHour()
+   result = Rs 90.0
+call: v.calculateFee(130)   declared type = Vehicle, actual type = ElectricCar
+   calculateFee(int) is not overridden -> Vehicle.calculateFee runs, and inside it:
+      this.ratePerHour() is resolved at RUN TIME from the actual object:
+      [executing] Car.ratePerHour()
+   result = Rs 90.0
+
+=== 4. Alternative: instanceof chain (results must match) ===
+TwoWheeler: dispatch = 30.0, instanceof = 30.0
+Car: dispatch = 90.0, instanceof = 90.0
+ElectricCar: dispatch = 90.0, instanceof = 90.0
+time per call (ns): dynamic dispatch = 2.94, instanceof chain = 0.63 (sink=1)
+dispatch: O(1) for any k (one vtable lookup);  instanceof chain: up to k type tests = O(k), and the chain must be edited for every new type.

@@ -1,0 +1,33 @@
+$ java -cp out Task07Demo
+=== toString() ===
+TwoWheeler[TN01A1, Rs 10.0/h]
+Car[TN02B2, Rs 30.0/h]
+ElectricCar[TN03C3, Rs 30.0/h] (EV)
+FlatFeeBike[TN04D4, Rs 15.0/h]
+
+=== calculateFee overridden vs inherited (130 minutes) ===
+TN01A1 -> Rs 30.0
+TN02B2 -> Rs 90.0
+TN03C3 -> Rs 90.0
+TN04D4 -> Rs 15.0
+
+=== equals() and hashCode() ===
+Car(TN02B2).equals(ElectricCar(TN02B2)) = true
+symmetric: ElectricCar.equals(Car)      = true
+Car(TN02B2).equals(Car(TN99Z9))         = false
+hashCodes equal for equal objects       = true
+HashSet contains ElectricCar(TN02B2)?     true  -> duplicate registration detected
+without equals/hashCode the default Object versions compare memory addresses and the answer would be false.
+
+=== User.payable() overridden ===
+PassHolder pays Rs 0.0, Visitor pays Rs 90.0
+
+=== final ===
+Vehicle.DAILY_CAP_HOURS (static final) = 8; regNo is a final field; getRegNo() is a final method.
+(see negative/ for what the compiler says when these rules are broken)
+
+=== Alternative: switch on a type field ===
+switch version, car, 130 min = Rs 90.0
+time per fee (ns), k = 3 types: overriding = 10.08, switch = 1.07 (sink=1)
+overriding: virtual dispatch via vtable = O(1) for any k;  switch: compiled to tableswitch = O(1), if-else chain = O(k)
+add a new type: overriding -> 1 NEW class, 0 classes changed;  switch -> constants + switch edited in the EXISTING class (1+ classes changed, re-test everything)

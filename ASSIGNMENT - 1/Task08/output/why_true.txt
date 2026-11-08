@@ -1,0 +1,14 @@
+Why does the last line of FeeDemo print true?
+
+Vehicle.equals(Object o) is  o instanceof Vehicle && regNo.equals(((Vehicle) o).regNo).
+new Car("TN02B2") and new ElectricCar("TN02B2") are both Vehicle objects (ElectricCar is-a Car is-a Vehicle)
+and both have the registration number "TN02B2", so the test passes and equals() returns true.
+
+Is it the correct behaviour for this system?  YES.
+A registration number identifies ONE physical vehicle. The same physical vehicle cannot be a Car and an
+ElectricCar at the same time, so if the same number appears twice it is a duplicate entry (the system must
+reject it - see Task 11). Comparing only regNo (not the class) means the duplicate is detected even if the
+operator mistypes the vehicle category. Because hashCode() uses the same field, HashSet/HashMap treat the two
+objects as the same key, which keeps the equals/hashCode contract.
+Drawback: it is deliberately NOT a "same class" comparison; if two different vehicle types could legitimately
+share a number (they cannot in real life), getClass() comparison would be needed.

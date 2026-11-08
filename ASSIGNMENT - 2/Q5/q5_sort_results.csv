@@ -1,0 +1,4 @@
+n,comparator_chain_1sort_ms,comparable_1sort_ms,three_stable_sorts_ms,same_result
+10000,7.090,4.610,12.727,true
+100000,70.212,48.102,111.001,true
+500000,533.164,347.398,723.548,true

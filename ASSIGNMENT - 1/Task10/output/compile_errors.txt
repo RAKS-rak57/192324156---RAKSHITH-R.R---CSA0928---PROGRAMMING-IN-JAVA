@@ -1,0 +1,11 @@
+$ javac -cp out -d /tmp/neg negative/AccessViolations.java 2>&1
+negative/AccessViolations.java:5: error: durationMinutes has private access in ParkingRecord
+        r.durationMinutes = -5;                 // private field
+         ^
+negative/AccessViolations.java:6: error: isValidRegNo(String) is not public in ParkingRecord; cannot be accessed from outside package
+        boolean ok = ParkingRecord.isValidRegNo("TN01A1");   // package-private method
+                                  ^
+negative/AccessViolations.java:7: error: ratePerHourOrDefault() has protected access in ParkingRecord
+        double d = r.ratePerHourOrDefault();    // protected, different package, not a subclass
+                    ^
+3 errors

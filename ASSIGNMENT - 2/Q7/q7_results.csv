@@ -1,0 +1,11 @@
+n,design,avg_time_ms,patients_or_heads_examined,priority_queues_created,allocated_MB,same_order
+1000,Original (rebuild PQ),11.547,500500,1000,6.96,true
+1000,Redesign (5 queues),0.132,3043,0,0.03,true
+2500,Original (rebuild PQ),74.522,3126250,2500,43.12,true
+2500,Redesign (5 queues),0.955,7528,0,0.06,true
+5000,Original (rebuild PQ),406.111,12502500,5000,177.59,true
+5000,Redesign (5 queues),2.288,14892,0,0.14,true
+10000,Original (rebuild PQ),1302.817,50005000,10000,712.61,true
+10000,Redesign (5 queues),1.678,29801,0,0.32,true
+20000,Original (rebuild PQ),4622.786,200010000,20000,2762.65,true
+20000,Redesign (5 queues),0.916,64430,0,0.48,true

@@ -1,0 +1,26 @@
+=== Q5 : tests on Data Set A (ties at every level) ===
+Ranking with comparator chain : [Eagles(9,6), Falcons(9,6), Falcons(9,6), Bisons(9,4), Panthers(9,4), Hawks(6,3), Cobras(6,1), Wolves(6,1), Sharks(3,0), Lions(3,-2), Tigers(3,-2)]
+Run again (original list unchanged, ranking() works on a copy) : true
+Principle check on every pair/triple of Data Set A -> violations = 0
+
+=== Data Set B : designed to break faulty comparators ===
+Correct chain          : [Alpha(2000000000,0), Echo(5,3), Zulu(5,3), Charlie(5,0), Delta(5,0), Bravo(-2000000000,0)]   violations=0
+Faulty (subtraction)   : [Echo(5,3), Zulu(5,3), Charlie(5,0), Delta(5,0), Bravo(-2000000000,0), Alpha(2000000000,0)]   violations=12
+      example -> transitivity: Alpha(2000000000,0) > Charlie(5,0) > Bravo(-2000000000,0) but not Alpha(2000000000,0) > Bravo(-2000000000,0)
+      example -> transitivity: Alpha(2000000000,0) > Delta(5,0) > Bravo(-2000000000,0) but not Alpha(2000000000,0) > Bravo(-2000000000,0)
+      (Alpha has 2,000,000,000 points, Bravo has -2,000,000,000; the subtraction overflows, so Alpha is wrongly placed BELOW Bravo)
+Faulty (no tie-break)  : input order 1 -> [Alpha(2000000000,0), Charlie(5,0), Delta(5,0), Echo(5,3), Zulu(5,3), Bravo(-2000000000,0)]
+                         input order 2 -> [Alpha(2000000000,0), Zulu(5,3), Echo(5,3), Delta(5,0), Charlie(5,0), Bravo(-2000000000,0)]
+      same teams, different output order: true  (ranking depends on input order, so it is not a true ranking)
+Correct chain, both input orders give same ranking: true
+Faulty (subtraction) on 2000 random teams: no exception thrown, but the order is wrong
+
+=== Generics, bounded type and wildcard demonstration ===
+NaturalBoard<T extends Comparable<? super T>> : [Eagles(9,6), Bisons(9,4), Panthers(9,4), Cobras(6,1)]
+Leaderboard<CollegeTeam> using Comparator<Team>  : [VIT(9,1), SRM(7,5), SIMATS(7,2)]
+
+=== Alternative designs on n random teams (average of 5 runs, ms) ===
+         n    Comparator chain(1)      Comparable(1)      3 stable sorts(3)   same order
+     10000                   7.09               4.61                  12.73         true
+    100000                  70.21              48.10                 111.00         true
+    500000                 533.16             347.40                 723.55         true

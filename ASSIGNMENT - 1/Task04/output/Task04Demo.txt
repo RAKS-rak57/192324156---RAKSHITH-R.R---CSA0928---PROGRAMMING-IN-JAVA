@@ -1,0 +1,31 @@
+$ java -cp out Task04Demo
+=== Constructors ===
+a     = Ticket#1000[TN01AB1111 F0-S0 2026-11-07T09:30]
+b     = TN02CD2222 ticketNo 1001
+blank = Ticket#-1[UNASSIGNED F-1-S-1 2000-01-01T00:00]
+
+=== Copy constructor (duplicate ticket) vs reference copy ===
+dup   = Ticket#1000[TN01AB1111 F0-S0 2026-11-07T09:30 DUPLICATE]
+dup == a      : false   (different objects)
+alias == a    : true   (same object, two references)
+same ticketNo : true   (number is not consumed again)
+next new ticket number = 1002   (a=1000, b=1001, never reused)
+
+=== Validation in the constructor ===
+blank regNo   -> regNo required
+negative floor -> floor/slot must be >= 0
+
+=== Alternative 1: default constructor + setters ===
+right after new: isValid() = false  (an INVALID object already exists)
+after 4 setters : isValid() = true
+
+=== Alternative 2: static factory ===
+factory ticket 1000 for TN06
+invalid -> invalid ticket
+
+=== Cost of creating n tickets (ms) ===
+n          constructor chain      default + 4 setters    static factory        
+100000     3.5                    7.1                    2.9                    (sink=1)
+1000000    17.8                   17.7                   13.1                   (sink=1)
+5000000    30.5                   26.2                   26.4                   (sink=1)
+All three create n objects: time O(n), space O(n); only the constant factor differs.

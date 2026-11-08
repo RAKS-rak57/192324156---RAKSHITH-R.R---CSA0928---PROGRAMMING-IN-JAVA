@@ -1,0 +1,9 @@
+$ java -cp out parking.app.LookupBenchmark
+Find a ticket by registration number (worst case: the LAST ticket inserted)
+n         array (ns)         ArrayList (ns)     HashMap (ns)       | array B/tkt  list B/tkt   map B/tkt   
+100       218.1              313.6              2.7                | 4            n/a          n/a          (sink=1)
+1000      2706.5             1986.1             3.0                | 4            n/a          n/a          (sink=1)
+10000     47954.2            30093.6            4.6                | 4            5            38           (sink=1)
+100000    635303.6           927467.8           13.3               | 4            4            42           (sink=1)
+B/tkt = extra bytes per ticket for the CONTAINER only (array slot = one 4-byte reference with compressed oops;
+ArrayList adds growth slack; HashMap adds a Node (32 B) + table slot per entry). Ticket objects themselves are shared by all three.

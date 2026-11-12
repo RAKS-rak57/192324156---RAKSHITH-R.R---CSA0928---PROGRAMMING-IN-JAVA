@@ -1,0 +1,42 @@
+Events: [Tech Symposium 2026, Cultural Night, Hackathon 24]
+Registrations at start: 12
+
+--- NORMAL registrations ---
+PASS new student, Hackathon                   -> Registered Ravi Teja (192319001) for Hackathon 24.
+PASS same student, another event              -> Registered Ravi Teja (192319001) for Cultural Night.
+PASS name with dot and spaces                 -> Registered A. P. Mohan (192319002) for Tech Symposium 2026.
+
+--- INVALID input (nothing reaches the database) ---
+PASS all fields empty                         -> Register number, name and e-mail are all required.
+PASS register number too short                -> Register number must be 9 digits (example 192311001).
+PASS register number with letters             -> Register number must be 9 digits (example 192311001).
+PASS name with digits                         -> Name may contain letters, spaces and dots only (2-60 characters).
+PASS e-mail without @                         -> E-mail address is not valid.
+PASS no event selected (prompt)               -> Select an event.
+PASS SQL text in the name                     -> Name may contain letters, spaces and dots only (2-60 characters).
+PASS null values                              -> Register number, name and e-mail are all required.
+
+--- DUPLICATE registrations ---
+PASS same student, same event again           -> 192319001 is already registered for Hackathon 24.
+PASS same again (different spelling)          -> 192319001 is already registered for Hackathon 24.
+PASS duplicate of seeded data                 -> 192311001 is already registered for Tech Symposium 2026.
+PASS direct insert behind the service's back          -> blocked by the UNIQUE key: Already registered for this event.
+
+--- Paging (page size 5) and filtering ---
+All events: 15 rows, 3 pages; page 1:
+   RegistrationRow[regId=1, regNo=192311001, studentName=Arun Kumar, eventTitle=Tech Symposium 2026, registeredOn=2026-11-08 10:00:00]
+   RegistrationRow[regId=2, regNo=192311002, studentName=Divya S, eventTitle=Cultural Night, registeredOn=2026-11-08 10:01:00]
+   RegistrationRow[regId=3, regNo=192311003, studentName=Kavin Raj, eventTitle=Hackathon 24, registeredOn=2026-11-08 10:02:00]
+   RegistrationRow[regId=4, regNo=192311004, studentName=Meena R, eventTitle=Tech Symposium 2026, registeredOn=2026-11-08 10:03:00]
+   RegistrationRow[regId=5, regNo=192311005, studentName=Rahul V, eventTitle=Cultural Night, registeredOn=2026-11-08 10:04:00]
+Filter = Hackathon 24: 5 rows
+Page 99 requested -> clamped to page 3 of 3
+
+--- Export ---
+15 rows written to registrations_export.csv. First lines:
+   reg_id,reg_no,student_name,event_title,registered_on
+   1,192311001,Arun Kumar,Tech Symposium 2026,2026-11-08 10:00:00
+   2,192311002,Divya S,Cultural Night,2026-11-08 10:01:00
+   3,192311003,Kavin Raj,Hackathon 24,2026-11-08 10:02:00
+
+Result: 15 passed, 0 failed

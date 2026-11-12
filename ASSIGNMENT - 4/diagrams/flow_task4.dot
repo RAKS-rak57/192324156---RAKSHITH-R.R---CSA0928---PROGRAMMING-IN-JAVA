@@ -1,0 +1,9 @@
+digraph G { rankdir=LR; node [shape=box, fontname="Helvetica", fontsize=11, style="filled,rounded"]; edge [fontname="Helvetica", fontsize=10];
+ labelloc=t; label="Task 4 - why the dots disappear and how the repaired program keeps them"; fontname="Helvetica-Bold";
+ subgraph cluster_bad { label="Original / step 2 (draw with getGraphics)"; style=rounded; fontname="Helvetica-Bold";
+   c1 [label="mouse click", fillcolor="#DDE8F7"]; c2 [label="mouseClicked()\ndraw dot on screen", fillcolor="#F8CBAD"]; c3 [label="minimise + restore\n(pixels thrown away)", fillcolor="#FFF2CC"]; c4 [label="paint() redraws\nNOTHING remembered", fillcolor="#F8CBAD"];
+   c1 -> c2 -> c3 -> c4; }
+ subgraph cluster_good { label="Repaired DrawPad (model + paint)"; style=rounded; fontname="Helvetica-Bold";
+   d1 [label="mouse click", fillcolor="#DDE8F7"]; d2 [label="mouseClicked()\npoints.add(p); repaint()", fillcolor="#E2F0D9"]; d3 [label="minimise + restore", fillcolor="#FFF2CC"]; d4 [label="paint() draws every\nstored point", fillcolor="#E2F0D9"];
+   d1 -> d2 -> d3 -> d4; d2 -> d4 [style=dashed, label="repaint()"]; }
+}

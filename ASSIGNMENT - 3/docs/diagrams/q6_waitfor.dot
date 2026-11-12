@@ -1,0 +1,4 @@
+digraph G { rankdir=LR; node [fontname="Helvetica", fontsize=11, style=filled]; 
+T1 [shape=ellipse, label="Transfer-1\n(A -> B)", fillcolor="#E8F0FE"]; T2 [shape=ellipse, label="Transfer-2\n(B -> A)", fillcolor="#E8F0FE"]; A [shape=box, label="lock of Wallet A", fillcolor="#FFF4D6"]; B [shape=box, label="lock of Wallet B", fillcolor="#FFF4D6"];
+A -> T1 [label="held by", color="#2E7D32"]; B -> T2 [label="held by", color="#2E7D32"]; T1 -> B [label="waits for", color="#C62828", style=bold]; T2 -> A [label="waits for", color="#C62828", style=bold];
+}

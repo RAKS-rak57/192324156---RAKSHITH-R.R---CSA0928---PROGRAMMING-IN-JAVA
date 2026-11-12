@@ -1,0 +1,17 @@
+Departments : [Cardiology, Dermatology, Orthopaedics, Paediatrics]
+Doctors of Cardiology : [Dr. Anand Rao, Dr. Meera Nair, Dr. S. Kumar]
+Doctors of Dermatology : [Dr. Priya Sharma, Dr. V. Balaji, Dr. Nisha George]
+Doctors of Orthopaedics : [Dr. Rajesh Iyer, Dr. Latha Menon, Dr. A. Fernandes]
+Doctors of Paediatrics : [Dr. Kavitha Rao, Dr. Imran Khan, Dr. Sneha Pillai]
+
+PASS valid booking                      Appointment confirmed: P1001 with Dr. Anand Rao (Cardiology) at 10:00.
+PASS same slot, same doctor             Dr. Anand Rao is already booked at 10:00.
+PASS same slot, other doctor            Appointment confirmed: P1002 with Dr. Meera Nair (Cardiology) at 10:00.
+PASS empty patient id                   Enter the patient ID.
+PASS bad patient id                     Patient ID must look like P1001.
+PASS no department                      Select a department.
+PASS no doctor                          Select a doctor.
+PASS doctor of another department       The doctor does not belong to Cardiology.
+PASS no slot                            Select a time slot.
+
+Result: 9 passed, 0 failed

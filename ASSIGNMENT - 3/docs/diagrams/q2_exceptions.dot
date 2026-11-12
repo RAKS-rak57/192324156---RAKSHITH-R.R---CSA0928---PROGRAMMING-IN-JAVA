@@ -1,0 +1,8 @@
+digraph G { rankdir=BT; node [shape=record, fontname="Helvetica", fontsize=11, style=filled, fillcolor="#FFFFFF"]; edge [arrowhead=empty];
+Exception [label="{java.lang.Exception|CHECKED}", fillcolor="#EEEEEE"]; RuntimeException [label="{java.lang.RuntimeException|UNCHECKED}", fillcolor="#EEEEEE"];
+ExamException [label="{ExamException|CHECKED root of all business failures\l|+ ExamException(message)\l+ ExamException(message, cause)\l}", fillcolor="#FFF4D6"];
+W [label="{ExamWindowClosedException|CHECKED  - deadline passed\l}", fillcolor="#FFF4D6"]; N [label="{NotRegisteredException|CHECKED  - student not on the course\l}", fillcolor="#FFF4D6"];
+F [label="{FileTooLargeException|CHECKED  - student can fix and resubmit\l}", fillcolor="#FFF4D6"]; S [label="{SubmissionStorageException|CHECKED  - storage layer failed\l|wraps IOException as cause\l}", fillcolor="#FFF4D6"];
+I [label="{InvalidSubmissionException|UNCHECKED  - null/blank argument = programming error\l}", fillcolor="#E8F0FE"];
+ExamException -> Exception; W -> ExamException; N -> ExamException; F -> ExamException; S -> ExamException; I -> RuntimeException;
+}

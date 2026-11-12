@@ -1,0 +1,16 @@
+$ java -cp out Q6Benchmark
+=== 1. 1 producer + 2 consumers, capacity 5: time for N tokens (ms, best of 3) and per token (us) ===
+N          wait()/notifyAll()       ArrayBlockingQueue(5)   
+10000      16       ms (1.56 us)    24       ms (2.41 us)
+50000      54       ms (1.08 us)    58       ms (1.17 us)
+100000     103      ms (1.03 us)    105      ms (1.05 us)
+
+=== 2. 8 threads x 1,000 random transfers between 6 wallets, NO artificial pause (ms, best of 2; us per transfer) ===
+ordered synchronized locks : 32 ms  (4.76 us per transfer)
+tryLock(5 ms) + back-off  : 317 ms  (47.48 us per transfer)
+
+=== 3. Space per counter object (bytes, 20,000 instances) ===
+wait/notify counter (int[5] + fields + trace list) : 130 bytes
+ArrayBlockingQueue(5) (Object[5] + lock + 2 conditions): 188 bytes
+Wallet (long + ReentrantLock): 84 bytes per Wallet (includes its ReentrantLock)
+keep-alive true

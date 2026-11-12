@@ -1,0 +1,15 @@
+digraph G { rankdir=TB; node [shape=record, fontname="Helvetica", fontsize=11, style=filled, fillcolor="#F4F7FB"]; edge [fontname="Helvetica", fontsize=10];
+ labelloc=t; label="Task 1 - repaired class structure (window only collects input and shows results)"; fontname="Helvetica-Bold";
+ win [label="{FeeWindow (JFrame)|+ windowClosing()|creates FeePanel}", fillcolor="#DDE8F7"];
+ panel [label="{FeePanel (JPanel)|- regNoField, amountField, status, receiptArea|- PayAction, ClearAction, ReceiptAction|+ runInBackground(work, onDone)}", fillcolor="#DDE8F7"];
+ svc [label="{FeeService|+ pay(regNo, amountText) : PaymentResult|+ receipt(regNo) : String|(validation, bank, saving)}", fillcolor="#E2F0D9"];
+ res [label="{PaymentResult|success, message, receiptText}"];
+ bank [label="{\<\<interface\>\> BankGateway|+ confirm(regNo, amount)}"];
+ sim [label="{SimulatedBank|delay}"];
+ repo [label="{\<\<interface\>\> PaymentRepository|+ save(regNo, amount)|+ history(regNo)}", fillcolor="#FFF2CC"];
+ jdbc [label="{JdbcPaymentRepository|PreparedStatement|try-with-resources}", fillcolor="#FFF2CC"];
+ mem [label="{InMemoryPaymentRepository|(tests)}", fillcolor="#FFF2CC"];
+ win -> panel [label="contains"]; panel -> svc [label="uses (in SwingWorker)"]; svc -> res [label="returns"];
+ svc -> bank [label="uses"]; svc -> repo [label="uses"];
+ sim -> bank [arrowhead=empty, style=dashed]; jdbc -> repo [arrowhead=empty, style=dashed]; mem -> repo [arrowhead=empty, style=dashed];
+}

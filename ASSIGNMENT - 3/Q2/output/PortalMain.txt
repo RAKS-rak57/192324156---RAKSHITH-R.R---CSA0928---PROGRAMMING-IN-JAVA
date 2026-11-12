@@ -1,0 +1,14 @@
+$ java -cp out portal.PortalMain
+| #  | Scenario                             | Expected exception           | Message the student sees                                     | Result |
+| 1  | valid submission                     | none                         | OK: ans1.pdf submitted                                       | PASS   |
+| 2  | student not registered               | NotRegisteredException       | REJECTED: you are not registered for CSA0928                 | PASS   |
+| 3  | window closed (12:01)                | ExamWindowClosedException    | REJECTED: the exam window has closed                         | PASS   |
+| 4  | exactly at closing time (boundary)   | none                         | OK: ans3b.pdf submitted                                      | PASS   |
+| 5  | file too large (201 KB)              | FileTooLargeException        | REJECTED: your file is larger than 200 KB - please compress it | PASS   |
+| 6  | file exactly at the limit (200 KB)   | none                         | OK: ans4b.pdf submitted                                      | PASS   |
+| 7  | disk quota exceeded (storage fails)  | SubmissionStorageException   | ERROR: we could not save your answer, please try again (reference logged) | PASS   |
+| 8  | blank file name (programming error)  | InvalidSubmissionException   | ERROR: invalid request                                       | PASS   |
+
+Result: 8 / 8 scenarios behaved as expected
+
+(chain for the storage failure is shown by ChainDemo)

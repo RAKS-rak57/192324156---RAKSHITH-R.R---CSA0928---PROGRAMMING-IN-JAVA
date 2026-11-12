@@ -1,0 +1,17 @@
+$ java -cp out results.FaultInjectionTest
+SUMMARY  submitted=15 success=6 corrupt=4 missing=2 error=3   complete=true
+grades   {A=2, B=1, D=1, FAIL=2}   mean average of successful files = 59.63
+failures (9):
+   f03.txt [ERROR] task failed: java.lang.IllegalStateException: injected bug in task for f03.txt
+   f08.txt [ERROR] task failed: java.lang.AssertionError: injected Error in task for f08.txt
+   f09.txt [CORRUPT] mark 5 out of range 0..100: 101
+   f10.txt [CORRUPT] empty file
+   f11.txt [CORRUPT] expected 6 fields, found 4
+   f12.txt [MISSING] file not found
+   f13.txt [MISSING] file not found
+   f14.txt [CORRUPT] not valid UTF-8 text
+   f15.txt [ERROR] I/O error: Is a directory
+
+expected: 15 submitted; f03 (was SUCCESS) and f08 (was CORRUPT) now ERROR -> success=6 corrupt=4 missing=2 error=3 (1 directory + 2 injected)
+actual  : submitted=15 success=6 corrupt=4 missing=2 error=3
+PASS - the run was not stopped, every file is accounted for, and the two injected failures are reported

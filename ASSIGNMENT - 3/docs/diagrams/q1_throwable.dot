@@ -1,0 +1,11 @@
+digraph G { rankdir=BT; node [shape=box, fontname="Helvetica", fontsize=11, style="rounded,filled", fillcolor="#FFFFFF"]; edge [arrowhead=empty];
+Object; Throwable; Error [fillcolor="#F8D7D7", label="Error\n(JVM problems - not handled)"]; Exception [fillcolor="#FFF4D6", label="Exception\n(CHECKED unless a RuntimeException)"];
+VirtualMachineError [fillcolor="#F8D7D7"]; StackOverflowError [fillcolor="#F8D7D7"]; OutOfMemoryError [fillcolor="#F8D7D7"];
+IOException [fillcolor="#FFF4D6", label="IOException\nCHECKED"]; FileNotFoundException [fillcolor="#FFF4D6", label="FileNotFoundException\nCHECKED"];
+InsufficientFundsException [fillcolor="#D8F5D8", label="InsufficientFundsException\nCHECKED (user-defined)"]; AccountNotFoundException [fillcolor="#D8F5D8", label="AccountNotFoundException\nCHECKED (user-defined)"]; CardDataException [fillcolor="#D8F5D8", label="CardDataException\nCHECKED (user-defined, keeps cause)"];
+RuntimeException [fillcolor="#E8F0FE", label="RuntimeException\nUNCHECKED"]; IllegalArgumentException [fillcolor="#E8F0FE", label="IllegalArgumentException\nUNCHECKED"]; NumberFormatException [fillcolor="#E8F0FE", label="NumberFormatException\nUNCHECKED"];
+NoSuchElementException [fillcolor="#E8F0FE", label="NoSuchElementException\nUNCHECKED"]; InputMismatchException [fillcolor="#E8F0FE", label="InputMismatchException\nUNCHECKED"];
+Throwable -> Object; Error -> Throwable; Exception -> Throwable; VirtualMachineError -> Error; StackOverflowError -> VirtualMachineError; OutOfMemoryError -> VirtualMachineError;
+IOException -> Exception; FileNotFoundException -> IOException; InsufficientFundsException -> Exception; AccountNotFoundException -> Exception; CardDataException -> Exception;
+RuntimeException -> Exception; IllegalArgumentException -> RuntimeException; NumberFormatException -> IllegalArgumentException; NoSuchElementException -> RuntimeException; InputMismatchException -> NoSuchElementException;
+}

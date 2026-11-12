@@ -1,0 +1,7 @@
+$ java -cp out SleepVsWait
+holder thread is inside synchronized(LOCK) for 400 ms; another thread tries to enter 100 ms later:
+  holder uses Thread.sleep(400): the other thread got in after 300 ms   (sleep KEEPS the lock)
+  holder uses LOCK.wait(400)   : the other thread got in after 0 ms     (wait RELEASES the lock)
+
+sleep(): static method of Thread, needs no lock, keeps any lock it holds, wakes up when the time is over.
+wait() : method of Object, must be called inside synchronized, releases that lock, wakes on notify()/notifyAll()/timeout and must re-acquire the lock.

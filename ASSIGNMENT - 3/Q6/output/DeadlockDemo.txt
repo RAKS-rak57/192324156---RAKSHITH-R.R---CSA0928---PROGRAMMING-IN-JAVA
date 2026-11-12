@@ -1,0 +1,10 @@
+$ java -cp out DeadlockDemo
+DEADLOCK DETECTED among 2 threads:
+  thread  : Transfer-1 (A -> B)   state = BLOCKED
+    waiting for lock : Wallet@4dd8dc3
+    which is held by : Transfer-2 (B -> A)
+  thread  : Transfer-2 (B -> A)   state = BLOCKED
+    waiting for lock : Wallet@6f496d9f
+    which is held by : Transfer-1 (A -> B)
+balances unchanged: A=1000 B=1000  (neither transfer completed; both threads wait forever)
+t1 alive=true t2 alive=true -> exiting the JVM with System.exit(0)

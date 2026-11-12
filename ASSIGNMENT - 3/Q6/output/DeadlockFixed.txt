@@ -1,0 +1,8 @@
+$ java -cp out DeadlockFixed
+=== The two conflicting transfers with lock ordering (lower wallet id locked first) ===
+both transfers completed: A=950 B=1050   (expected A=950, B=1050)
+
+=== Stress: 8 threads x 200 random transfers between 6 wallets, 1 ms pause between the two locks ===
+unsafe order (from, to)            HUNG (deadlock)  money before=60000 after=60000 (conserved)  time=5011 ms
+ordered locks (lower id first)     finished        money before=60000 after=60000 (conserved)  time=641 ms
+tryLock with timeout + back-off    finished        money before=60000 after=60000 (conserved)  time=1508 ms

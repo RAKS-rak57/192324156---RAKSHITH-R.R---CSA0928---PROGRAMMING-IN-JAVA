@@ -1,0 +1,7 @@
+rows,approach,fetch_ms,edt_model_fill_ms,edt_allocated_MB
+1000,all at once,0.010,1.089,0.160
+1000,page of 50,0.012,0.061,0.009
+10000,all at once,0.033,7.008,1.642
+10000,page of 50,0.012,0.023,0.009
+100000,all at once,0.095,36.965,13.206
+100000,page of 50,0.010,0.017,0.008

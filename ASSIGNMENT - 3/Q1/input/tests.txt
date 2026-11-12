@@ -1,0 +1,13 @@
+# label | request | card file | expected path
+valid withdrawal          | 1001 500  | input/cards.txt         | SUCCESS
+exact balance (boundary)  | 1002 200  | input/cards.txt         | SUCCESS
+letters instead of number | abc 500   | input/cards.txt         | BAD_INPUT
+letters in the amount     | 1001 five | input/cards.txt         | BAD_INPUT
+negative amount           | 1001 -50  | input/cards.txt         | BAD_INPUT
+zero amount               | 1001 0    | input/cards.txt         | BAD_INPUT
+amount token missing      | 1001      | input/cards.txt         | MISSING_INPUT
+more than the balance     | 1002 900  | input/cards.txt         | INSUFFICIENT_FUNDS
+unknown account           | 9999 100  | input/cards.txt         | ACCOUNT_NOT_FOUND
+card file missing         | 1001 100  | input/no_such_file.txt  | CARD_FILE_MISSING
+card file damaged         | 1002 100  | input/cards_corrupt.txt | CARD_DATA
+card path is a directory  | 1001 100  | input                   | CARD_FILE_MISSING

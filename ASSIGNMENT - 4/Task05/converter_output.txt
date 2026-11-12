@@ -1,0 +1,28 @@
+=== Task 5: every version, amount 5000 INR -> EUR (index 1) and invalid text 'abc' ===
+class        button click Enter key      invalid 'abc'  dialog shown?  dialog text           
+ConverterA   55.00 EUR    (nothing)      Invalid amount no             -                     
+ConverterB   55.00 EUR    (nothing)      Invalid amount no             -                     
+ConverterC   55.00 EUR    (nothing)      Invalid amount no             -                     
+ConverterD   55.00 EUR    (nothing)      Invalid amount no             -                     
+ConverterA2  55.00 EUR    55.00 EUR      Invalid amount yes            55.00 EUR             
+ConverterB2  55.00 EUR    55.00 EUR      Invalid amount yes            55.00 EUR             
+ConverterC2  55.00 EUR    55.00 EUR      Invalid amount yes            55.00 EUR             
+ConverterD2  55.00 EUR    55.00 EUR      Invalid amount yes            55.00 EUR             
+ConverterE   55.00 EUR    55.00 EUR      Invalid amount yes            55.00 EUR             
+ConverterF   55.00 EUR    55.00 EUR      Invalid amount yes            55.00 EUR             
+
+=== Complete the Code: Converter.java (lambda, one listener for button and Enter) ===
+2500 INR -> USD, button click : 30.00 USD
+5000 INR -> EUR, Enter key    : 55.00 EUR
+'12abc'                       : Invalid amount
+empty field                   : Invalid amount
+listeners on the button / on the text field : 1 / 1   same object? true
+
+=== Listener objects registered per version (distinct objects) ===
+ConverterA2  registrations: 2   distinct listener objects: 1
+ConverterB2  registrations: 2   distinct listener objects: 2
+ConverterC2  registrations: 2   distinct listener objects: 1
+ConverterD2  registrations: 2   distinct listener objects: 1
+ConverterE   registrations: 2   distinct listener objects: 2
+ConverterF   registrations: 3   distinct listener objects: 1
+ConverterF menu item click (same Action) -> result label: 1.20 USD; Action shared by button and menu item: true

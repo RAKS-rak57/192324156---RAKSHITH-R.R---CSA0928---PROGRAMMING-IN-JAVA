@@ -1,0 +1,6 @@
+$ java -cp out JoinDemo
+--- without join() ---
+total printed immediately by main : 0   (WRONG - stations still scanning)
+total after the stations finished  : 80
+--- with join() ---
+total printed after join()          : 80   (correct: 4 x 20 = 80)

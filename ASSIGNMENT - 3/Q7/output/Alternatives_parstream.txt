@@ -1,0 +1,5 @@
+$ java -cp out results.Alternatives parstream data 0; java -cp out results.Alternatives parstream data 500
+mode = parstream, files = 10000, simulated latency = 0 us, processors = 1, common pool parallelism = 1
+time = 317 ms   submitted=10000 success=9548 corrupt=260 missing=192 error=0   complete=true   MATCH
+mode = parstream, files = 10000, simulated latency = 500 us, processors = 1, common pool parallelism = 1
+time = 3410 ms   submitted=10000 success=9548 corrupt=260 missing=192 error=0   complete=true   MATCH

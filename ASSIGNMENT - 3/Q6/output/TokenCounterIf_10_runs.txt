@@ -1,0 +1,11 @@
+$ for i in $(seq 1 10); do echo -n "run $i: "; timeout 10 java -cp out TokenCounterIf || echo "(timed out)"; done
+run 1: Sum of tokens collected: 175 (expected 210)
+run 2: Sum of tokens collected: 210 (expected 210)
+run 3: Sum of tokens collected: 210 (expected 210)
+run 4: Sum of tokens collected: 185 (expected 210)
+run 5: Sum of tokens collected: 175 (expected 210)
+run 6: Sum of tokens collected: 175 (expected 210)
+run 7: Sum of tokens collected: 200 (expected 210)
+run 8: Sum of tokens collected: 200 (expected 210)
+run 9: Sum of tokens collected: 200 (expected 210)
+run 10: Sum of tokens collected: 60 (expected 210)

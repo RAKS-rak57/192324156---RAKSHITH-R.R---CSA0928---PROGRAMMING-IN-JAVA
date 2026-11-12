@@ -1,0 +1,15 @@
+$ java -cp out StaticSyncDemo
+=== Which intrinsic lock does each form use? ===
+  synchronized method      holds this lock         : true   holds class lock: false
+  synchronized (this)      holds this lock         : true
+  synchronized (private)   holds the private lock  : true   holds this lock: false
+  static synchronized      holds the Class lock    : true
+
+=== 4 screens, each booking 20,000 times into ONE static counter (expected 80000) ===
+  instance-synchronized (4 different locks): 20000
+  instance-synchronized (4 different locks): 20002
+  instance-synchronized (4 different locks): 20000
+  static synchronized   (one Class lock)   : 80000
+  static synchronized   (one Class lock)   : 80000
+  static synchronized   (one Class lock)   : 80000
+(Thread.yield() between the read and the write of the counter widens the window so the lost updates are visible on one core)

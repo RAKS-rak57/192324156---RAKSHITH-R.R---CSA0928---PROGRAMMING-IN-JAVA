@@ -1,0 +1,34 @@
+$ java -cp out PriorityExperiment
+available processors = 1
+
+=== all priority 5 (NORM) ===
+run  1 finish order: S4 S1 S2 S3
+run  2 finish order: S1 S2 S3 S4
+run  3 finish order: S3 S4 S1 S2
+run  4 finish order: S1 S2 S3 S4
+run  5 finish order: S3 S2 S1 S4
+run  6 finish order: S1 S2 S4 S3
+run  7 finish order: S1 S2 S3 S4
+run  8 finish order: S1 S3 S4 S2
+run  9 finish order: S1 S3 S4 S2
+run 10 finish order: S1 S2 S4 S3
+run 11 finish order: S1 S2 S3 S4
+run 12 finish order: S1 S2 S4 S3
+times each station finished FIRST: S1=9 S2=0 S3=2 S4=1
+times each station finished LAST : S1=0 S2=3 S3=4 S4=5
+
+=== S1 = 10 (MAX), S2 = S3 = 5, S4 = 1 (MIN) ===
+run  1 finish order: S1 S2 S3 S4
+run  2 finish order: S1 S2 S3 S4
+run  3 finish order: S2 S3 S1 S4
+run  4 finish order: S3 S2 S4 S1
+run  5 finish order: S1 S2 S3 S4
+run  6 finish order: S1 S2 S4 S3
+run  7 finish order: S4 S1 S3 S2
+run  8 finish order: S2 S1 S3 S4
+run  9 finish order: S2 S1 S3 S4
+run 10 finish order: S1 S2 S3 S4
+run 11 finish order: S4 S3 S1 S2
+run 12 finish order: S1 S2 S3 S4
+times each station finished FIRST: S1=6 S2=3 S3=1 S4=2
+times each station finished LAST : S1=1 S2=2 S3=1 S4=8

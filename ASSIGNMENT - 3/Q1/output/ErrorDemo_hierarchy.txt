@@ -1,0 +1,15 @@
+$ java -cp out ErrorDemo
+=== Superclass chains (child -> ... -> Object) ===
+InputMismatchException -> NoSuchElementException -> RuntimeException -> Exception -> Throwable -> Object
+NumberFormatException -> IllegalArgumentException -> RuntimeException -> Exception -> Throwable -> Object
+IllegalArgumentException -> RuntimeException -> Exception -> Throwable -> Object
+FileNotFoundException -> IOException -> Exception -> Throwable -> Object
+InsufficientFundsException -> Exception -> Throwable -> Object
+AccountNotFoundException -> Exception -> Throwable -> Object
+CardDataException -> Exception -> Throwable -> Object
+StackOverflowError -> VirtualMachineError -> Error -> Throwable -> Object
+OutOfMemoryError -> VirtualMachineError -> Error -> Throwable -> Object
+
+=== An Error is not an Exception ===
+catch (Exception) did NOT catch it; only an Error handler did. Recursion depth reached = 10732
+An Error means the JVM itself is in trouble; the ATM cannot repair it, so it is not handled (only logged at the top level).

@@ -1,0 +1,25 @@
+Region sizes (width x height in pixels) after layout at three window sizes
+
+DESIGN: nested
+window       results    search fld Search btn Prev btn   status     title     
+520x330      520x204    224x19     75x25      61x25      520x21     520x23    
+800x500      800x374    224x19     75x25      61x25      800x21     800x23    
+             results grew: true   Search button kept its size: true
+1100x650     1100x524   224x19     75x25      61x25      1100x21    1100x23   
+             results grew: true   Search button kept its size: true
+
+DESIGN: gridbag
+window       results    search fld Search btn Prev btn   status     title     
+520x330      508x202    280x19     75x25      61x25      508x15     508x23    
+800x500      788x372    560x19     75x25      61x25      788x15     788x23    
+             results grew: true   Search button kept its size: true
+1100x650     1088x522   860x19     75x25      61x25      1088x15    1088x23   
+             results grew: true   Search button kept its size: true
+
+DESIGN: absolute
+window       results    search fld Search btn Prev btn   status     title     
+520x330      580x240    250x26     90x26      90x28      580x22     600x34    
+800x500      580x240    250x26     90x26      90x28      580x22     600x34    
+             results grew: false   Search button kept its size: true
+1100x650     580x240    250x26     90x26      90x28      580x22     600x34    
+             results grew: false   Search button kept its size: true

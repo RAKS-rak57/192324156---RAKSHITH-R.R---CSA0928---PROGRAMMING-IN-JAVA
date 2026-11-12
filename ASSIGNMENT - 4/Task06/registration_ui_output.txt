@@ -1,0 +1,31 @@
+=== Menu bar ===
+  File : Export CSV...  | Exit  
+  View : Register screen  Registrations screen  | Refresh table  
+  Help : About  
+
+=== Stage 5 demonstration through the real window ===
+[invalid]   empty form, click Register  -> Register number, name and e-mail are all required.
+[invalid]   bad e-mail                  -> E-mail address is not valid.
+[normal]    valid form                  -> Registered Ravi Teja (192319010) for Hackathon 24.
+[duplicate] same student, same event   -> 192319010 is already registered for Hackathon 24.
+[table]     Registrations screen: Page 1 of 3, 13 registration(s) found
+      1                     192311001             Arun Kumar            Tech Symposium 2026   2026-11-08 10:00:00   
+      2                     192311002             Divya S               Cultural Night        2026-11-08 10:01:00   
+      3                     192311003             Kavin Raj             Hackathon 24          2026-11-08 10:02:00   
+      4                     192311004             Meena R               Tech Symposium 2026   2026-11-08 10:03:00   
+      5                     192311005             Rahul V               Cultural Night        2026-11-08 10:04:00   
+[paging]    Next -> Page 2 of 3
+      6                     192311006             Sneha P               Hackathon 24          2026-11-08 10:05:00   
+      7                     192311007             Imran K               Tech Symposium 2026   2026-11-08 10:06:00   
+      8                     192311008             Priya N               Cultural Night        2026-11-08 10:07:00   
+      9                     192311009             Balaji T              Hackathon 24          2026-11-08 10:08:00   
+      10                    192311010             Nisha G               Tech Symposium 2026   2026-11-08 10:09:00   
+[filter]    event = Cultural Night -> Page 1 of 1, 4 registration(s) found
+      2                     192311002             Divya S               Cultural Night        2026-11-08 10:01:00   
+      5                     192311005             Rahul V               Cultural Night        2026-11-08 10:04:00   
+      8                     192311008             Priya N               Cultural Night        2026-11-08 10:07:00   
+      11                    192311011             Anand M               Cultural Night        2026-11-08 10:10:00   
+
+=== Responsiveness with a slow database (400 ms per call, count + page = 2 calls) ===
+page loaded after 855 ms; while loading the status showed "Loading ..."; 21 pings to the event-dispatch thread, slowest answer 2.00 ms
+final status: 12 registration(s) found / Page 1 of 3

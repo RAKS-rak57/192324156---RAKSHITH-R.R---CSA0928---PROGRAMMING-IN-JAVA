@@ -1,0 +1,17 @@
+$ for f in negative/*.java; do echo "### javac $f"; javac -d /tmp/neg $f 2>&1; done
+### javac negative/BroadBeforeNarrow.java
+negative/BroadBeforeNarrow.java:6: error: exception FileNotFoundException has already been caught
+        catch (FileNotFoundException e) { System.out.println("file missing"); }  // can never be reached
+        ^
+1 error
+### javac negative/MultiCatchRelated.java
+negative/MultiCatchRelated.java:4: error: Alternatives in a multi-catch statement cannot be related by subclassing
+        catch (NumberFormatException | IllegalArgumentException e) { }   // NumberFormatException IS-A IllegalArgumentException
+                                       ^
+  Alternative NumberFormatException is a subclass of alternative IllegalArgumentException
+1 error
+### javac negative/UnreportedChecked.java
+negative/UnreportedChecked.java:4: error: unreported exception FileNotFoundException; must be caught or declared to be thrown
+        new FileReader("cards.txt");      // checked FileNotFoundException neither caught nor declared
+        ^
+1 error

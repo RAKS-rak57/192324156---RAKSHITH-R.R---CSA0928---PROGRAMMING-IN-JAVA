@@ -1,0 +1,10 @@
+$ java -cp out UncaughtDemo 2>&1; echo "exit code = $?"
+ATM started
+Exception in thread "main" java.lang.NumberFormatException: For input string: "abc"
+	at java.base/java.lang.NumberFormatException.forInputString(NumberFormatException.java:67)
+	at java.base/java.lang.Integer.parseInt(Integer.java:662)
+	at java.base/java.lang.Integer.parseInt(Integer.java:778)
+	at UncaughtDemo.parseAmount(UncaughtDemo.java:13)
+	at UncaughtDemo.process(UncaughtDemo.java:9)
+	at UncaughtDemo.main(UncaughtDemo.java:5)
+exit code = 1

@@ -1,0 +1,51 @@
+$ java -cp out AtmTest
+Test 1: valid withdrawal   request="1001 500" card=input/cards.txt
+   dispensed 500, new balance 4500
+   [finally] card reader released, session closed
+   -> path=SUCCESS expected=SUCCESS finally executed=true  PASS
+Test 2: exact balance (boundary)   request="1002 200" card=input/cards.txt
+   dispensed 200, new balance 0
+   [finally] card reader released, session closed
+   -> path=SUCCESS expected=SUCCESS finally executed=true  PASS
+Test 3: letters instead of number   request="abc 500" card=input/cards.txt
+   Please enter a valid account number and a positive amount (InputMismatchException)
+   [finally] card reader released, session closed
+   -> path=BAD_INPUT expected=BAD_INPUT finally executed=true  PASS
+Test 4: letters in the amount   request="1001 five" card=input/cards.txt
+   Please enter a valid account number and a positive amount (InputMismatchException)
+   [finally] card reader released, session closed
+   -> path=BAD_INPUT expected=BAD_INPUT finally executed=true  PASS
+Test 5: negative amount   request="1001 -50" card=input/cards.txt
+   Please enter a valid account number and a positive amount (IllegalArgumentException)
+   [finally] card reader released, session closed
+   -> path=BAD_INPUT expected=BAD_INPUT finally executed=true  PASS
+Test 6: zero amount   request="1001 0" card=input/cards.txt
+   Please enter a valid account number and a positive amount (IllegalArgumentException)
+   [finally] card reader released, session closed
+   -> path=BAD_INPUT expected=BAD_INPUT finally executed=true  PASS
+Test 7: amount token missing   request="1001" card=input/cards.txt
+   Please enter both the account number and the amount
+   [finally] card reader released, session closed
+   -> path=MISSING_INPUT expected=MISSING_INPUT finally executed=true  PASS
+Test 8: more than the balance   request="1002 900" card=input/cards.txt
+   Insufficient funds: balance 200, requested 900 (short by 700)
+   [finally] card reader released, session closed
+   -> path=INSUFFICIENT_FUNDS expected=INSUFFICIENT_FUNDS finally executed=true  PASS
+Test 9: unknown account   request="9999 100" card=input/cards.txt
+   Account not found: 9999
+   [finally] card reader released, session closed
+   -> path=ACCOUNT_NOT_FOUND expected=ACCOUNT_NOT_FOUND finally executed=true  PASS
+Test 10: card file missing   request="1001 100" card=input/no_such_file.txt
+   Card reader unavailable: input/no_such_file.txt
+   [finally] card reader released, session closed
+   -> path=CARD_FILE_MISSING expected=CARD_FILE_MISSING finally executed=true  PASS
+Test 11: card file damaged   request="1002 100" card=input/cards_corrupt.txt
+   Card data damaged: bad line "1002,abc"  [cause: NumberFormatException]
+   [finally] card reader released, session closed
+   -> path=CARD_DATA expected=CARD_DATA finally executed=true  PASS
+Test 12: card path is a directory   request="1001 100" card=input
+   Card reader unavailable: input
+   [finally] card reader released, session closed
+   -> path=CARD_FILE_MISSING expected=CARD_FILE_MISSING finally executed=true  PASS
+
+Result: 12 / 12 tests passed; finally blocks executed = 12

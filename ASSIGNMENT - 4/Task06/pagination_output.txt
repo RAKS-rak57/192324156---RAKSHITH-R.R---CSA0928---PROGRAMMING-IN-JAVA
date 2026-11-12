@@ -1,0 +1,9 @@
+=== Loading registrations into a JTable model: everything at once vs one page of 50 (average of 5 runs) ===
+     rows approach         fetch (ms)   EDT blocked: fill (ms)    EDT allocation (MB)
+     1000 all at once            0.01                     1.09                   0.16
+     1000 page of 50             0.01                     0.06                   0.01
+    10000 all at once            0.03                     7.01                   1.64
+    10000 page of 50             0.01                     0.02                   0.01
+   100000 all at once            0.09                    36.97                  13.21
+   100000 page of 50             0.01                     0.02                   0.01
+(checksum 1111500)

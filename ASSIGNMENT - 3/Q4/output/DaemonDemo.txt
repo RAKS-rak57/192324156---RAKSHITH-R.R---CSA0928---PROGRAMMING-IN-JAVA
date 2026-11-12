@@ -1,0 +1,29 @@
+$ java -cp out DaemonDemo daemon; echo '--- same program, NOT daemon ---'; java -cp out DaemonDemo
+S4 isDaemon = true
+   S4 scanned script 1
+   S4 scanned script 2
+main() is ending now
+--- same program, NOT daemon ---
+S4 isDaemon = false
+   S4 scanned script 1
+   S4 scanned script 2
+main() is ending now
+   S4 scanned script 3
+   S4 scanned script 4
+   S4 scanned script 5
+   S4 scanned script 6
+   S4 scanned script 7
+   S4 scanned script 8
+   S4 scanned script 9
+   S4 scanned script 10
+   S4 scanned script 11
+   S4 scanned script 12
+   S4 scanned script 13
+   S4 scanned script 14
+   S4 scanned script 15
+   S4 scanned script 16
+   S4 scanned script 17
+   S4 scanned script 18
+   S4 scanned script 19
+   S4 scanned script 20
+   S4 FINISHED its whole batch

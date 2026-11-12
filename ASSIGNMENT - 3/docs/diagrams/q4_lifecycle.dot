@@ -1,0 +1,5 @@
+digraph G { rankdir=LR; node [shape=ellipse, fontname="Helvetica", fontsize=11, style=filled, fillcolor="#FFFFFF"]; edge [fontname="Helvetica", fontsize=9];
+NEW [fillcolor="#E8F0FE"]; RUNNABLE [fillcolor="#D8F5D8", label="RUNNABLE\n(ready or running)"]; BLOCKED [fillcolor="#F8D7D7"]; WAITING [fillcolor="#FFF4D6"]; TIMED_WAITING [fillcolor="#FFF4D6"]; TERMINATED [fillcolor="#DDDDDD"];
+NEW -> RUNNABLE [label="start()"]; RUNNABLE -> TIMED_WAITING [label="sleep(ms)\njoin(ms)\nwait(ms)"]; TIMED_WAITING -> RUNNABLE [label="time over /\ninterrupt"];
+RUNNABLE -> WAITING [label="join()\nwait()"]; WAITING -> RUNNABLE [label="thread ended /\nnotify()"]; RUNNABLE -> BLOCKED [label="enter synchronized\n(lock taken)"]; BLOCKED -> RUNNABLE [label="lock obtained"]; RUNNABLE -> TERMINATED [label="run() returns /\nuncaught exception"];
+}

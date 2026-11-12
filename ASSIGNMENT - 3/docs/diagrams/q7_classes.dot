@@ -1,0 +1,12 @@
+digraph G { rankdir=BT; node [shape=record, fontname="Helvetica", fontsize=10.5, style=filled, fillcolor="#FFFFFF"]; edge [fontname="Helvetica", fontsize=9];
+Main [label="{Main|+ main(dir, threads, latency)\l+ readIndex(dir) : List\<Path\>\l}"];
+RP [label="{ResultProcessor|+ process(files, threads, latency) : Run\l|ExecutorService pool (fixed size)\lConcurrentMap\<String,FileResult\> results\lList\<Future\<FileResult\>\> futures\l}", fillcolor="#E8F0FE"];
+Task [label="{ScoreFileTask  «Callable\<FileResult\>»|- file : Path\l- sink : ConcurrentMap\l|+ call() : FileResult\l  (converts every failure into a FileResult)\l}", fillcolor="#E8F0FE"];
+Parser [label="{ScoreParser|+ parse(text) : Parsed\l  throws CorruptFileException\l}"];
+Corrupt [label="{CorruptFileException|CHECKED\l}", fillcolor="#FFF4D6"];
+FR [label="{FileResult  «record»|fileName, status, studentId,\ltotal, average, grade, message\l}", fillcolor="#D8F5D8"];
+St [label="{«enum» Status|SUCCESS, CORRUPT,\lMISSING, ERROR\l}", fillcolor="#D8F5D8"];
+Sum [label="{Summary|counts, grades, failures\l|+ complete : boolean\l}", fillcolor="#D8F5D8"];
+Main -> RP [arrowhead=open, label="uses"]; RP -> Task [arrowhead=open, label="submits 1 per file"]; Task -> Parser [arrowhead=open]; Parser -> Corrupt [arrowhead=open, style=dashed, label="throws"];
+Task -> FR [arrowhead=open, style=dashed, label="creates"]; FR -> St [arrowhead=open]; RP -> Sum [arrowhead=open, style=dashed, label="builds at the end"];
+}

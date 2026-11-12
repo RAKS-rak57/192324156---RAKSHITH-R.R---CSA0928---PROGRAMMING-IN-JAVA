@@ -1,0 +1,8 @@
+digraph G { rankdir=LR; node [shape=box, fontname="Helvetica", fontsize=11, style="rounded,filled", fillcolor="#FFFFFF"]; 
+IO [label="Storage.save()\n\nnew IOException(\"Disk quota exceeded\")\nthrown by the disk simulation", fillcolor="#F8D7D7"];
+ST [label="Storage.save()  catch (IOException e)\n\nthrow new SubmissionStorageException(\n  \"Could not store ...\", e)   <- cause kept", fillcolor="#FFF4D6"];
+SV [label="SubmissionService.submit()\n\ndeclares  throws ExamException\nno catch: exception PROPAGATES", fillcolor="#FFF4D6"];
+CT [label="ExamController.submit()\n\ncatch (SubmissionStorageException e)\nHANDLED HERE", fillcolor="#D8F5D8"];
+UI [label="Student sees:\n\"ERROR: we could not save your answer,\nplease try again (reference logged)\"", fillcolor="#E8F0FE"];
+IO -> ST [label=" 1. caught"]; ST -> SV [label=" 2. thrown (wrapped)"]; SV -> CT [label=" 3. propagates"]; CT -> UI [label=" 4. message"];
+}

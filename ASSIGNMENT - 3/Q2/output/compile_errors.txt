@@ -1,0 +1,5 @@
+$ javac -cp out -d /tmp/neg negative/ForgotToHandle.java 2>&1
+negative/ForgotToHandle.java:6: error: unreported exception ExamException; must be caught or declared to be thrown
+        s.submit("S001", "CSA0928", "a.pdf", 10, LocalDateTime.now());
+                ^
+1 error

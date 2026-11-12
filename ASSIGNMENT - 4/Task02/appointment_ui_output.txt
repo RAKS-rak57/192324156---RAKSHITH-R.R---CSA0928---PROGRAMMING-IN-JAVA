@@ -1,0 +1,24 @@
+[1] window created. Doctor list: []
+[2] department = Cardiology  -> doctor list: [Dr. Anand Rao, Dr. Meera Nair, Dr. S. Kumar]
+[3] department = Paediatrics -> doctor list: [Dr. Kavitha Rao, Dr. Imran Khan, Dr. Sneha Pillai]
+[4] Book with empty patient ID -> Enter the patient ID.
+[5] in-progress booking? true  -> closing asks for confirmation
+    receptionist answers NO  -> window closes? false
+    receptionist answers YES -> window closes? true
+    [confirm:Confirm close] A booking is in progress. Close the window anyway? -> 1
+    [confirm:Confirm close] A booking is in progress. Close the window anyway? -> 0
+[6] Book -> Appointment confirmed: P1001 with Dr. Imran Khan (Paediatrics) at 10:00.
+[7] form cleared after success; in-progress now? false  -> closing needs no question: true
+[8] Same doctor and slot, other patient -> Dr. Imran Khan is already booked at 10:00.
+
+Events handled by the panel, in order:
+  1. ItemEvent(SELECTED) from departmentBox -> Cardiology
+  2. ItemEvent(SELECTED) from departmentBox -> Paediatrics
+  3. ActionEvent from bookButton
+  4. DocumentEvent(insert) from patientId
+  5. ActionEvent from bookButton
+  6. DocumentEvent(remove) from patientId
+  7. ItemEvent(SELECTED) from departmentBox -> -- select --
+  8. DocumentEvent(insert) from patientId
+  9. ItemEvent(SELECTED) from departmentBox -> Paediatrics
+  10. ActionEvent from bookButton

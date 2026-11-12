@@ -1,0 +1,23 @@
+$ java -cp out ExceptionCostBenchmark
+=== 1. Parsing 1,000,000 inputs: exception vs error code (ns per input, best of 5) ===
+bad inputs     try/catch        error code      
+0 %            4.4              5.9             
+1 %            13.0             16.3            
+10 %           50.5             15.6            
+50 %           200.4            15.1            
+100 %          362.5            2.8             
+
+=== 2. Cost of one throw + catch by stack depth (ns, best of 5) ===
+depth    new Exception()        new, no stack trace      pre-allocated         
+1        442                    52                       50                    
+10       981                    325                      322                   
+50       2881                   1328                     1300                  
+200      11107                  4941                     4949                  
+500      24676                  12085                    12203                 
+
+=== 3. Memory held by one exception object (bytes, 50,000 kept alive) ===
+depth    trace captured only        after getStackTrace()     
+1        724                        900                       
+10       732                        1372                      
+100      2796                       8116                      
+(sink=true)

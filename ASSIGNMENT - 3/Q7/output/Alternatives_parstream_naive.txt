@@ -1,0 +1,5 @@
+$ java -cp out results.Alternatives parstream-naive data 0
+mode = parstream-naive, files = 10000, simulated latency = 0 us, processors = 1, common pool parallelism = 1
+whole run ABORTED after 89 of 10000 files were processed: java.lang.RuntimeException: score02521.txt: results.CorruptFileException: empty file
+no summary can be produced; the other files' results are lost (not collected anywhere).
+time until abort = 55 ms

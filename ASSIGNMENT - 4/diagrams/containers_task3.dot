@@ -1,0 +1,14 @@
+digraph G { rankdir=TB; compound=true; node [shape=box, fontname="Helvetica", fontsize=10, style="filled,rounded", fillcolor="#F4F7FB"]; edge [arrowhead=none];
+ labelloc=t; label="Task 3 - container trees of the three designs"; fontname="Helvetica-Bold";
+ subgraph cluster_a { label="Design A: nested Border + Flow (chosen)"; style=rounded; fontname="Helvetica-Bold";
+   a0 [label="LibraryNested\nBorderLayout", fillcolor="#DDE8F7"];
+   a1 [label="north\nBorderLayout", fillcolor="#DDE8F7"]; a2 [label="JScrollPane results\n(CENTER: gets all spare space)", fillcolor="#E2F0D9"]; a3 [label="south\nBorderLayout", fillcolor="#DDE8F7"];
+   a4 [label="title JLabel\n(NORTH)"]; a5 [label="searchRow\nFlowLayout LEFT"]; a6 [label="buttonRow\nFlowLayout CENTER"]; a7 [label="status JLabel\n(SOUTH)"];
+   a8 [label="label, query, category, Search"]; a9 [label="Prev, Next, Reserve"];
+   a0 -> a1; a0 -> a2; a0 -> a3; a1 -> a4; a1 -> a5; a3 -> a6; a3 -> a7; a5 -> a8; a6 -> a9; }
+ subgraph cluster_b { label="Design B: GridBagLayout"; style=rounded; fontname="Helvetica-Bold";
+   b0 [label="LibraryGridBag\nGridBagLayout", fillcolor="#DDE8F7"]; b1 [label="title (fill H)"]; b2 [label="label, query (weightx=1), category, Search"]; b3 [label="results (weightx=1, weighty=1, fill BOTH)", fillcolor="#E2F0D9"]; b4 [label="buttons panel (FlowLayout)"]; b5 [label="status"];
+   b0 -> b1; b0 -> b2; b0 -> b3; b0 -> b4; b0 -> b5; }
+ subgraph cluster_c { label="Design C: absolute (null layout)"; style=rounded; fontname="Helvetica-Bold";
+   c0 [label="LibraryAbsolute\nsetLayout(null)", fillcolor="#F8CBAD"]; c1 [label="10 components, each with fixed setBounds(x, y, w, h)"]; c0 -> c1; }
+}

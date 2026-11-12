@@ -1,0 +1,12 @@
+$ java -cp out CounterStress
+(10 trials each; HUNG = threads still blocked after 2 seconds)
+--- Part 1: while vs if  (notifyAll in both) ---
+while, capacity 5, 1 producer, 2 consumers (the assignment)    -> {OK=10}
+if,    capacity 5, 1 producer, 2 consumers (the assignment)    -> {OK=7, SIZE OUT OF RANGE=3}
+while, capacity 1, 2 producers, 4 consumers, 500 tokens each   -> {OK=10}
+if,    capacity 1, 2 producers, 4 consumers, 500 tokens each   -> {SIZE OUT OF RANGE=10}
+--- Part 2: notify() vs notifyAll()  (while in both) ---
+notifyAll, 1 producer, 2 consumers, capacity 5                 -> {OK=10}
+notify,    1 producer, 2 consumers, capacity 5                 -> {OK=10}
+notifyAll, 2 producers, 4 consumers, capacity 1                -> {OK=10}
+notify,    2 producers, 4 consumers, capacity 1                -> {HUNG=10}

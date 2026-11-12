@@ -1,0 +1,2 @@
+$ java -cp out TokenCounter
+Sum of tokens collected: 210 (expected 210)

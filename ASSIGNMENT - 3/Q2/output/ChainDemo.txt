@@ -1,0 +1,26 @@
+$ java -cp out portal.ChainDemo
+--- WITH chaining (cause kept) ---
+getMessage() = Could not store third.pdf
+getCause()   = java.io.IOException: Disk quota exceeded
+  level 0: portal.SubmissionStorageException : Could not store third.pdf
+  level 1: java.io.IOException : Disk quota exceeded
+full stack trace:
+portal.SubmissionStorageException: Could not store third.pdf
+	at portal.Storage.save(Storage.java:12)
+	at portal.SubmissionService.submit(SubmissionService.java:26)
+	at portal.ChainDemo.tryTwice(ChainDemo.java:20)
+	at portal.ChainDemo.main(ChainDemo.java:31)
+Caused by: java.io.IOException: Disk quota exceeded
+	at portal.Storage.save(Storage.java:9)
+	... 3 more
+
+--- WITHOUT the cause (re-thrown as a new exception) ---
+getMessage() = Could not store third.pdf
+getCause()   = null
+  level 0: portal.SubmissionStorageException : Could not store third.pdf
+full stack trace:
+portal.SubmissionStorageException: Could not store third.pdf
+	at portal.Storage.saveLossy(Storage.java:21)
+	at portal.SubmissionService.submit(SubmissionService.java:26)
+	at portal.ChainDemo.tryTwice(ChainDemo.java:20)
+	at portal.ChainDemo.main(ChainDemo.java:33)

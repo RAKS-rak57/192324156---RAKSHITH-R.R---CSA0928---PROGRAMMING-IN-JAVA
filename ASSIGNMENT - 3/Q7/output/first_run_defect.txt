@@ -1,0 +1,16 @@
+$ java -cp out results.Main input/handset 4      # FIRST version of ScoreFileTask (no CharacterCodingException handler)
+SUMMARY  submitted=15 success=7 corrupt=4 missing=2 error=2   complete=true
+grades   {A=2, B=1, C=1, D=1, FAIL=2}   mean average of successful files = 58.57
+failures (8):
+   f08.txt [CORRUPT] mark 2 is not a number: 'eighty'
+   f09.txt [CORRUPT] mark 5 out of range 0..100: 101
+   f10.txt [CORRUPT] empty file
+   f11.txt [CORRUPT] expected 6 fields, found 4
+   f12.txt [MISSING] file not found
+   f13.txt [MISSING] file not found
+   f14.txt [ERROR] I/O error: Input length = 1
+   f15.txt [ERROR] I/O error: Is a directory
+time = 45 ms with 4 thread(s), simulated latency 0 us
+expected  submitted=15 success=7 corrupt=5 missing=2 error=1
+actual    submitted=15 success=7 corrupt=4 missing=2 error=2
+MISMATCH

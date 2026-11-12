@@ -1,0 +1,8 @@
+=== Dispatch time for the LAST button (worst case), ns per event, average of 5 runs ===
+       k  if-else chain        HashMap     own listener bytes: 1 listener bytes: k listeners
+       3           33.2          113.0              0.1              808              872
+      10           81.7           16.4              0.1              808             1008
+     100          402.5           13.5              0.1              808             2808
+    1000         3022.3            8.9              0.1              808            20808
+   10000        37026.9           15.6              0.2              808           200808
+(checksum 39550559734)

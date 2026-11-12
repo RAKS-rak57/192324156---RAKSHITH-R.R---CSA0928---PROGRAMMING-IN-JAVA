@@ -1,0 +1,42 @@
+$ bash debug_session.sh
+Initializing jdb ...
+> Deferring breakpoint ReportGenerator:53.
+It will be set after the class is loaded.
+> Deferring breakpoint ReportGenerator:34.
+It will be set after the class is loaded.
+> run LeakDebugTarget
+Set uncaught java.lang.Throwable
+Set deferred uncaught java.lang.Throwable
+> 
+VM Started: Set deferred breakpoint ReportGenerator:34
+Set deferred breakpoint ReportGenerator:53
+Breakpoint hit: "thread=main", ReportGenerator.leaky(), line=53 bci=68
+53                        r.close();                                   // skipped when processStore throws
+main[1]  f.getName() = "store1.csv"
+main[1]  Tracked.OPEN.size() = 2
+main[1] > 
+Breakpoint hit: "thread=main", ReportGenerator.leaky(), line=53 bci=68
+53                        r.close();                                   // skipped when processStore throws
+main[1]  f.getName() = "store2.csv"
+main[1]  Tracked.OPEN.size() = 2
+main[1] > 
+Breakpoint hit: "thread=main", ReportGenerator.processStore(), line=34 bci=68
+34                    throw new IOException("bad data in " + name + " line " + lineNo + ": \"" + line + "\"", e);
+main[1]   [1] ReportGenerator.processStore (ReportGenerator.java:34)
+  [2] ReportGenerator.leaky (ReportGenerator.java:52)
+  [3] LeakDebugTarget.main (LeakDebugTarget.java:6)
+main[1] Method arguments:
+r = instance of Tracked$Reader(id=927)
+name = "store3.csv"
+out = instance of Tracked$Writer(id=929)
+Local variables:
+revenue = 95.0
+lineNo = 3
+line = "notebook,four,5.00"
+p = instance of java.lang.String[3] (id=931)
+e = instance of java.lang.NumberFormatException(id=932)
+main[1]  Tracked.OPEN.size() = 2
+main[1] > [LOG] SEVERE: FAILED while reading store3.csv: bad data in store3.csv line 3: "notebook,four,5.00"
+report failed at store3.csv
+open handles at exit: 2
+The application exited

@@ -1,0 +1,23 @@
+$ java -cp out TwrDemo
+=== 1. Closing order: reverse of opening ===
+  open  A (opened first)
+  open  B (opened second)
+  body runs
+  close B (opened second)
+  close A (opened first)
+
+=== 2. Body fails AND close() fails -> the close failure is SUPPRESSED, the body failure is reported ===
+  open  A
+  open  B
+  close B
+  close A
+  caught   : body failed (the PRIMARY exception)
+  suppressed (2): [java.lang.IllegalStateException: close() of B failed, java.lang.IllegalStateException: close() of A failed]
+
+=== 3. The same situation with manual finally -> the ORIGINAL failure is lost ===
+  open  A
+  open  B
+  close B
+  close A
+  caught   : close() of A failed   <- the body failure and B's close failure are GONE
+  suppressed (0): nothing recorded

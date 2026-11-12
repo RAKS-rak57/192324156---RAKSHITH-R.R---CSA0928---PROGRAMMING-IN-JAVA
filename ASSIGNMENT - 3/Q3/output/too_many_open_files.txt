@@ -1,0 +1,2 @@
+$ bash -c "ulimit -n 128; java -cp out ReportScaleBenchmark ulimit" 2>&1 | head -3
+FAILED after 122 handles were open: /tmp/stores_400_727185945210631951/store00121.csv (Too many open files)

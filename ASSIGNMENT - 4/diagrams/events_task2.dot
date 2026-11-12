@@ -1,0 +1,8 @@
+digraph G { rankdir=LR; node [shape=box, fontname="Helvetica", fontsize=11, style="filled,rounded"]; edge [fontname="Helvetica", fontsize=10];
+ labelloc=t; label="Task 2 - event sources, event objects and listeners"; fontname="Helvetica-Bold";
+ s1 [label="Window close button", fillcolor="#DDE8F7"]; e1 [label="WindowEvent", fillcolor="#FFF2CC"]; l1 [label="WindowListener / WindowAdapter\nwindowClosing()", fillcolor="#E2F0D9"];
+ s2 [label="departmentBox", fillcolor="#DDE8F7"]; e2 [label="ItemEvent (SELECTED)", fillcolor="#FFF2CC"]; l2 [label="ItemListener\nrefreshDoctors()", fillcolor="#E2F0D9"];
+ s3 [label="Book button", fillcolor="#DDE8F7"]; e3 [label="ActionEvent", fillcolor="#FFF2CC"]; l3 [label="ActionListener\nbook() -> SwingWorker", fillcolor="#E2F0D9"];
+ s4 [label="patientId text field", fillcolor="#DDE8F7"]; e4 [label="DocumentEvent", fillcolor="#FFF2CC"]; l4 [label="DocumentListener\n(form becomes 'in progress')", fillcolor="#E2F0D9"];
+ s1 -> e1 -> l1; s2 -> e2 -> l2; s3 -> e3 -> l3; s4 -> e4 -> l4;
+}

@@ -1,0 +1,20 @@
+$ java -cp out results.GenerateScores 10000 data; java -cp out results.Main data 4
+generated 10000 entries in data: submitted=10000 success=9548 corrupt=260 missing=192 error=0
+SUMMARY  submitted=10000 success=9548 corrupt=260 missing=192 error=0   complete=true
+grades   {A=1291, B=3952, C=1201, D=119, FAIL=2985}   mean average of successful files = 64.79
+failures (452):
+   score00025.txt [CORRUPT] empty file
+   score00026.txt [CORRUPT] mark 5 out of range 0..100: 150
+   score00066.txt [CORRUPT] mark 2 is not a number: 'abc'
+   score00078.txt [MISSING] file not found
+   score00089.txt [CORRUPT] empty file
+   score00140.txt [CORRUPT] mark 5 out of range 0..100: 150
+   score00143.txt [MISSING] file not found
+   score00155.txt [CORRUPT] empty file
+   score00173.txt [CORRUPT] empty file
+   score00182.txt [CORRUPT] mark 2 is not a number: 'abc'
+   ... 442 more
+time = 460 ms with 4 thread(s), simulated latency 0 us
+expected  submitted=10000 success=9548 corrupt=260 missing=192 error=0
+actual    submitted=10000 success=9548 corrupt=260 missing=192 error=0
+MATCH

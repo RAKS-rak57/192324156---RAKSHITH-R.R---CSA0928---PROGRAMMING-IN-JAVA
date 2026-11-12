@@ -1,0 +1,9 @@
+$ java -cp out results.Alternatives thread-per-file data 500; java -cp out results.Alternatives thread-per-file data 2000000
+mode = thread-per-file, files = 10000, simulated latency = 500 us, processors = 1, common pool parallelism = 1
+peak live threads = 55
+memory while the threads were alive: resident +39784 KB, reserved virtual +52572 KB
+time = 1768 ms   submitted=10000 success=9548 corrupt=260 missing=192 error=0   complete=true   MATCH
+mode = thread-per-file, files = 10000, simulated latency = 2000000 us, processors = 1, common pool parallelism = 1
+peak live threads = 10006
+memory while the threads were alive: resident +267812 KB, reserved virtual +10243292 KB
+time = 7334 ms   submitted=10000 success=9548 corrupt=260 missing=192 error=0   complete=true   MATCH

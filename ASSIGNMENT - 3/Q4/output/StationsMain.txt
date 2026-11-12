@@ -1,0 +1,5 @@
+$ java -cp out StationsMain thread; java -cp out StationsMain runnable
+alive right after start(): true true true true
+alive after join()       : false false false false
+finish order: S2 S1 S3 S4   total scripts scanned = 80
+finish order: S4 S2 S1 S3   total scripts scanned = 80

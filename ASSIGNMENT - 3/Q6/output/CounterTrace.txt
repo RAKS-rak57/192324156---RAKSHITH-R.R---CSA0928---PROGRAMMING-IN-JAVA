@@ -1,0 +1,5 @@
+$ java -cp out CounterTrace
+counter size after each of the 40 operations (put or take):
+[1, 2, 3, 4, 5, 4, 3, 4, 5, 4, 5, 4, 5, 4, 5, 4, 5, 4, 3, 4, 5, 4, 5, 4, 5, 4, 3, 4, 5, 4, 5, 4, 5, 4, 5, 4, 3, 2, 1, 0]
+minimum size seen = 0, maximum size seen = 5   (limits: 0 and 5)
+sum of tokens = 210 (expected 210), final size = 0

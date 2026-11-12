@@ -1,0 +1,6 @@
+$ java -cp out_nocause StorageDemoNoCause 2>&1; echo "exit code = $?"
+Saved answer01.pdf
+Error: Could not store answer02.pdf
+Exception in thread "main" java.lang.NullPointerException: Cannot invoke "java.lang.Throwable.getMessage()" because the return value of "ExamException.getCause()" is null
+	at StorageDemoNoCause.main(StorageDemoNoCause.java:33)
+exit code = 1

@@ -1,0 +1,7 @@
+=== Department change: cached Map  vs  query on every change ===
+     d         m    Map lookup (ns)   DB query scan (ns)   DB with 2 ms trip (ms)  Map memory (MB)
+    10      1000              370.7              51427.0                    2.051             0.01
+    10    100000              113.0             971032.1                    2.971             0.54
+   100    100000              328.4            1187615.8                    3.188             0.48
+  1000    200000              297.7            4781786.1                    6.782             1.01
+(checksum 282924032)

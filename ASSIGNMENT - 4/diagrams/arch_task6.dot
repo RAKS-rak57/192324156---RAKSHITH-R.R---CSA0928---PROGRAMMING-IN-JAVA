@@ -1,0 +1,12 @@
+digraph G { rankdir=TB; node [shape=box, fontname="Helvetica", fontsize=11, style="filled,rounded"]; edge [fontname="Helvetica", fontsize=10];
+ labelloc=t; label="Task 6 - layered architecture (each layer talks only to the layer below it)"; fontname="Helvetica-Bold";
+ subgraph cluster_ui { label="ui  (Swing)"; style=rounded; fillcolor="#EAF1FB"; style="rounded,filled";
+   mf [label="MainFrame\nJMenuBar + CardLayout", fillcolor="#DDE8F7"]; rp [label="RegisterPanel", fillcolor="#DDE8F7"]; lp [label="RegistrationsPanel\nJTable + paging", fillcolor="#DDE8F7"]; }
+ subgraph cluster_sv { label="service"; style="rounded,filled"; fillcolor="#EAF6E4"; sv [label="RegistrationService\nvalidate - duplicate check - paging - CSV", fillcolor="#E2F0D9"]; }
+ subgraph cluster_dao { label="dao"; style="rounded,filled"; fillcolor="#FFF8E1"; di [label="<<interface>> RegistrationDao", fillcolor="#FFF2CC"]; jd [label="JdbcRegistrationDao\n(MySQL, PreparedStatement)", fillcolor="#FFF2CC"]; md [label="InMemoryRegistrationDao\n(demo / tests)", fillcolor="#FFF2CC"]; }
+ db [label="MySQL database\nstudent - event - registration", shape=cylinder, fillcolor="#D9D9D9"];
+ mod [label="model: Student, CampusEvent, RegistrationRow, PageData (records)", fillcolor="#F2F2F2"];
+ mf -> rp; mf -> lp; rp -> sv [label="in SwingWorker"]; lp -> sv [label="in SwingWorker"]; mf -> sv [label="export CSV"];
+ sv -> di; jd -> di [arrowhead=empty, style=dashed]; md -> di [arrowhead=empty, style=dashed]; jd -> db [label="JDBC"];
+ sv -> mod [style=dotted, arrowhead=none];
+}

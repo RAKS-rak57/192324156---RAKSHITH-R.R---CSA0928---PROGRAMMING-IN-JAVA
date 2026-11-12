@@ -1,0 +1,20 @@
+// ORIGINAL code given in the assignment (kept only for reference - it does not even compile:
+// the string concatenation in the INSERT statement is missing a + sign).
+public class FeeWindow extends Frame implements ActionListener {
+    TextField regNo = new TextField();
+    TextField amount = new TextField();
+    Button pay = new Button("Pay"), clear = new Button("Clear"), receipt = new Button("Receipt");
+
+    public void actionPerformed(ActionEvent e) {
+        if (e.getActionCommand() == "Pay") {
+            double a = Double.parseDouble(amount.getText());
+            Connection c = DriverManager.getConnection(URL, USER, PWD);
+            c.createStatement().executeUpdate("INSERT INTO fees VALUES('" + regNo.getText() "'," + a + ")");
+            Thread.sleep(3000);               // wait for bank confirmation
+            System.out.println("Paid");
+        } else {
+            regNo.setText("");
+            amount.setText("");
+        }
+    }
+}

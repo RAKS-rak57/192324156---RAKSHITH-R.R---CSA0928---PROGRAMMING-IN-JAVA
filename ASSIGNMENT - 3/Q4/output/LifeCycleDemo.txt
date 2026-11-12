@@ -1,0 +1,11 @@
+$ java -cp out LifeCycleDemo
+after new Thread(...)          : NEW   isAlive=false
+50 ms after start(), computing : RUNNABLE   isAlive=true
+while inside Thread.sleep(300) : TIMED_WAITING
+after the run() method ended   : TERMINATED   isAlive=false
+waiting to enter synchronized  : BLOCKED
+inside wait()                  : WAITING
+inside join() of another thread: WAITING
+
+A scanner station (Thread / Runnable) passes through: NEW -> RUNNABLE -> TIMED_WAITING (each sleep) <-> RUNNABLE -> TERMINATED.
+main passes through WAITING while it is inside join().

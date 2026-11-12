@@ -1,0 +1,13 @@
+$ echo "checked variant   : $(grep -o " throws " src/portal/*.java | wc -l) throws clauses  (Storage x2, SubmissionService x1)"; echo "unchecked variant : $(grep -o " throws " src/portal_unchecked/*.java | wc -l) throws clauses"; echo; grep -n "throws" src/portal/Storage.java src/portal/SubmissionService.java | grep -v "^.*://"; echo; echo "unchecked variant still passes the same scenarios:"; java -cp out portal_unchecked.PortalMain | tail -3
+checked variant   : 3 throws clauses  (Storage x2, SubmissionService x1)
+unchecked variant : 0 throws clauses
+
+src/portal/Storage.java:7:    public void save(String fileName, long sizeKb) throws SubmissionStorageException {
+src/portal/Storage.java:16:    public void saveLossy(String fileName, long sizeKb) throws SubmissionStorageException {
+src/portal/SubmissionService.java:5:/** SERVICE layer: business rules. Declares (throws) what it cannot handle and lets it propagate upwards. */
+src/portal/SubmissionService.java:16:    public void submit(String student, String course, String fileName, long sizeKb, LocalDateTime now) throws ExamException {
+
+unchecked variant still passes the same scenarios:
+Result: 8 / 8 scenarios behaved as expected
+
+(chain for the storage failure is shown by ChainDemo)

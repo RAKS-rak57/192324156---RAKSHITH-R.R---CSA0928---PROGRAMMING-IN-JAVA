@@ -1,0 +1,11 @@
+$ for i in $(seq 1 10); do echo -n "run $i: "; java -cp out SeatBookingUnsyncSlow; done
+run 1: Seats sold: 17
+run 2: Seats sold: 15
+run 3: Seats sold: 17
+run 4: Seats sold: 15
+run 5: Seats sold: 16
+run 6: Seats sold: 12
+run 7: Seats sold: 16
+run 8: Seats sold: 17
+run 9: Seats sold: 15
+run 10: Seats sold: 18

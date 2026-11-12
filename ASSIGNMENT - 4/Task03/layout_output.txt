@@ -1,0 +1,5 @@
+=== Time for one resize (layout of the whole tree) and number of container objects ===
+design     helper JPanels   all containers     components layout time (us/resize)
+nested                  4               25             25                  22.21
+gridbag                 1               22             22                  28.45
+absolute                0               21             21                   4.51

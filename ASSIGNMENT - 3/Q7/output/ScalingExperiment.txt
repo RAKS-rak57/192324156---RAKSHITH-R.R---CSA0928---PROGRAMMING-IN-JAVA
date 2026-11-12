@@ -1,0 +1,22 @@
+$ java -cp out results.ScalingExperiment data
+processors = 1, files = 10000
+
+=== A. real file reading only (no simulated latency) ===
+threads  all runs (ms)                      best       median       speed-up   correct 
+1        88 153 131 96 90 95 88             88         95           1.00       true    
+2        45 50 43 44 38 38 36               36         43           2.21       true    
+4        35 41 37 36 36 42 48               35         37           2.57       true    
+8        40 38 37 41 47 43 40               37         40           2.37       true    
+16       44 42 39 42 43 44 41               39         42           2.26       true    
+32       46 58 55 53 46 46 49               46         49           1.94       true    
+
+=== B. with 500 us simulated storage latency per file (network disk / slow share) ===
+threads  all runs (ms)                      best       median       speed-up   correct 
+1        6368 6354                          6354       6368         1.00       true    
+2        3204 3175                          3175       3204         1.99       true    
+4        1572 1572                          1572       1572         4.05       true    
+8        784 804                            784        804          7.92       true    
+16       404 406                            404        406          15.67      true    
+32       189 200                            189        200          31.84      true    
+
+raw data written to output/measurements.csv

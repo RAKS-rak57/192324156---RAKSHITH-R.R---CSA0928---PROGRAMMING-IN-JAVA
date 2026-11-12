@@ -1,0 +1,10 @@
+$ java -cp out RunVsStart
+main thread id = 1
+calling t.run():
+   body executed by thread: main  (id 1)
+   t1 state after run(): NEW   (the thread was never started)
+calling t.start():
+   body executed by thread: station-2  (id 14)
+starting the same thread twice:
+   java.lang.IllegalThreadStateException
+four 100 ms jobs: via run() = 401 ms (sequential, one after another), via start() = 100 ms (overlapping)

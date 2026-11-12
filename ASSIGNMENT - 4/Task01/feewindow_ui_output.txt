@@ -1,0 +1,8 @@
+[1] window opened: status=" "
+[2] Pay with empty fields -> status: Register number is required.
+[3] Pay with amount 'abc'   -> status: Amount must be a number.
+[4] Pay 15000 (bank takes 1.5 s): finished after 1624 ms; status: Payment of Rs.15000.00 received. Receipt RCPT-00001.
+    event-dispatch thread stayed responsive: 32 pings during the payment, slowest answer 1.28 ms
+[5] Clear, then Receipt for 192311001 -> receipt area:
+    Receipts for 192311001
+    RCPT-00001  Rs.15000.00

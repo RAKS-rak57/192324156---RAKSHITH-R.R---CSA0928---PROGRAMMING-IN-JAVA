@@ -1,0 +1,14 @@
+$ java -cp out StackTraceCostBenchmark
+=== Time to CREATE (not throw) one exception object, ns, best of 5 ===
+depth    single exception       wrapper + cause (chained) 
+5        450                    988                       
+25       830                    1706                      
+100      2842                   5044                      
+400      9875                   18377                     
+
+=== Memory kept alive per exception object, bytes (30,000 objects, trace not yet expanded) ===
+depth    single exception       wrapper + cause (chained) 
+5        719                    1460                      
+25       732                    1460                      
+100      2796                   5588                      
+(sink=true)

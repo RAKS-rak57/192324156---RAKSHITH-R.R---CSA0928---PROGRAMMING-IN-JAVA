@@ -1,0 +1,31 @@
+TABLES        : ['student', 'event', 'registration']
+seed rows     : students=3 events=3 registrations=3
+
+-- RULE 1: one registration per student per event (UNIQUE (reg_no, event_id))
+   duplicate rejected  : UNIQUE constraint failed: registration.reg_no, registration.event_id
+   same student, other event accepted: OK
+
+-- RULE 2: registration must point to an existing student and event (FOREIGN KEY)
+   (999999999, 1) rejected  : FOREIGN KEY constraint failed
+   (192311001, 99) rejected  : FOREIGN KEY constraint failed
+
+-- Upsert of the student row (MySQL: ON DUPLICATE KEY UPDATE; SQLite: ON CONFLICT DO UPDATE)
+   ('192311001', 'Arun K', 'arun.new@example.com')
+
+-- The paging query used by JdbcRegistrationDao.page()  (LIMIT 2 OFFSET 0, then OFFSET 2)
+   (1, '192311001', 'Arun K', 'Tech Symposium 2026')
+   (2, '192311002', 'Divya S', 'Tech Symposium 2026')
+   ---
+   (3, '192311003', 'Kavin Raj', 'Cultural Night')
+   (4, '192311001', 'Arun K', 'Cultural Night')
+   ---
+-- Filter by event 1
+   (1, '192311001', 'Arun K', 'Tech Symposium 2026')
+   (2, '192311002', 'Divya S', 'Tech Symposium 2026')
+   query plan: ['SEARCH e USING INTEGER PRIMARY KEY (rowid=?)', 'SEARCH r USING INDEX idx_reg_event (event_id=?)', 'SEARCH s USING INDEX sqlite_autoindex_student_1 (reg_no=?)']
+
+-- Cost of paging with 100,000 registrations (SQLite stand-in, one run each, milliseconds)
+   all rows (no LIMIT)                                  100004 rows    144.90 ms
+   page of 50, OFFSET 0                                   50 rows      0.06 ms
+   page of 50, OFFSET 50,000                              50 rows     15.39 ms
+   page of 50, OFFSET 99,950 (last page)                  50 rows     30.12 ms

@@ -1,0 +1,6 @@
+Task 5.2 - change effort: base version -> version with Enter key + result dialog
+style  LOC before  LOC after  lines added  lines removed  lines changed in total
+  A         44        47          3           0              3
+  B         46        49          3           0              3
+  C         45        49          6           2              8
+  D         40        44          5           1              6

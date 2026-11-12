@@ -1,0 +1,19 @@
+$ java -cp out ExecutorStations
+=== 1. The four stations on a fixed pool (4 batches of 20 scripts, Callable returns the count) ===
+total scripts scanned = 80   pool terminated = true
+
+=== 2. n = 400 scripts, each 5 ms of waiting, p pool threads: completion time vs the n/p batches model ===
+p    model n*5ms/p (ms) measured (ms)      efficiency  
+1    2000               2069               0.97        
+2    1000               1032               0.97        
+4    500                514                0.97        
+8    250                257                0.97        
+16   125                132                0.94        
+50   40                 48                 0.83        
+
+=== 3. Cost of creating threads yourself vs re-using pool threads: 2,000 tiny tasks ===
+new Thread per task: 85.0 ms (42.5 us per task)   pool of 4: 1.2 ms (0.6 us per task)
+
+=== 4. Memory per thread (default stack size = 1024 KB, -Xss) ===
+500 parked threads: resident memory +38180 KB (76 KB per thread), reserved virtual memory +471040 KB (942 KB per thread)
+pool of 4 threads: about 4 x that, whatever the number of tasks.

@@ -1,0 +1,8 @@
+digraph G { rankdir=LR; node [shape=box, fontname="Helvetica", fontsize=11, style="filled,rounded"]; edge [fontname="Helvetica", fontsize=10];
+ labelloc=t; label="Task 6 - which thread does what (the event-dispatch thread never waits for the database)"; fontname="Helvetica-Bold";
+ subgraph cluster_edt { label="Event-dispatch thread (EDT)"; style="rounded,filled"; fillcolor="#EAF1FB";
+   a [label="button click\nread text fields\ndisable button, show 'Saving ...'", fillcolor="#DDE8F7"]; d [label="done():\nshow message, update JTable,\nre-enable button", fillcolor="#DDE8F7"]; }
+ subgraph cluster_w { label="SwingWorker thread"; style="rounded,filled"; fillcolor="#EAF6E4";
+   w [label="doInBackground():\nservice.register(...) / loadPage(...)\nJDBC call to MySQL", fillcolor="#E2F0D9"]; }
+ a -> w [label="execute()"]; w -> d [label="result via get()"];
+}

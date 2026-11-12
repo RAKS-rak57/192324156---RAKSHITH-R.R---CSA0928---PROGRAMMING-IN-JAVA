@@ -1,0 +1,29 @@
+=== FeeService tests ===
+PASS valid payment                          success=true  message=Payment of Rs.15000.00 received. Receipt RCPT-00001.
+PASS valid payment with spaces              success=true  message=Payment of Rs.2500.50 received. Receipt RCPT-00002.
+PASS empty register number                  success=false message=Register number is required.
+PASS short register number                  success=false message=Register number must be 9 digits (example 192311001).
+PASS empty amount                           success=false message=Amount is required.
+PASS amount is text                         success=false message=Amount must be a number.
+PASS negative amount                        success=false message=Amount must be between 1 and 200000.
+PASS zero amount                            success=false message=Amount must be between 1 and 200000.
+PASS amount too large                       success=false message=Amount must be between 1 and 200000.
+PASS NaN amount                             success=false message=Amount must be between 1 and 200000.
+PASS SQL injection in reg number            success=false message=Register number must be 9 digits (example 192311001).
+PASS null inputs                            success=false message=Register number is required.
+
+Payments stored after all tests : 2  (expected 2 - invalid input never reaches the database)
+Receipt text for 192311001:
+Receipts for 192311001
+RCPT-00001  Rs.15000.00
+Receipt text for 192311009 (no payments):
+No payments found for 192311009.
+
+Result: 12 passed, 0 failed
+
+"Pay" == "Pay" (same literal)          : true
+new String("Pay") == "Pay"             : false   <- == compares references
+new String("Pay").equals("Pay")        : true
+
+Original code builds : INSERT INTO fees VALUES('x', 0); DROP TABLE fees; --',100.0)
+Repaired code sends  : INSERT INTO fees(reg_no, amount) VALUES (?, ?)   with ? = text "x', 0); DROP TABLE fees; --" as data only

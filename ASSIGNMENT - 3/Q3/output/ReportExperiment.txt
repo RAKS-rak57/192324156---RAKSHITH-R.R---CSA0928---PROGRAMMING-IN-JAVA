@@ -1,0 +1,30 @@
+$ java -cp out ReportExperiment 2>&1
+=== 1. SAME GOOD INPUT (input/stores: 5 files) - do all versions produce the same report? ===
+version                    report hash  lines      tracked open   OS fds open   
+leaky (close in try)       22c5eda2     6          0              0             
+manual try/catch/finally   22c5eda2     6          0              0             
+try-with-resources         22c5eda2     6          0              0             
+never closed               22c5eda2     6          6              6             
+manual == try-with-resources report: true   (leaky and never-closed also equal on SUCCESS: true)
+-> on a successful run the leaky version only looks fine because it closes at the end; the never-closed version leaks even on success.
+
+=== 2. FAILING INPUT (input/stores_bad: store3.csv has a bad number on line 3) ===
+version                    report hash  lines      tracked open   OS fds open    exception
+[LOG] SEVERE: FAILED while reading store3.csv: bad data in store3.csv line 3: "notebook,four,5.00"
+leaky (close in try)       e3b0c442     0          2              2              failed at store3.csv  leaked=[summary-writer, reader]
+[LOG] SEVERE: FAILED while reading store3.csv: bad data in store3.csv line 3: "notebook,four,5.00"
+manual try/catch/finally   c1387d2f     2          0              0              failed at store3.csv  leaked=[]
+[LOG] SEVERE: FAILED while reading store3.csv: bad data in store3.csv line 3: "notebook,four,5.00"
+try-with-resources         c1387d2f     2          0              0              failed at store3.csv  leaked=[]
+[LOG] SEVERE: FAILED while reading store3.csv: bad data in store3.csv line 3: "notebook,four,5.00"
+never closed               e3b0c442     0          4              4              failed at store3.csv  leaked=[summary-writer, reader, reader, reader]
+
+=== report file content at the moment of failure (before any clean-up) ===
+--- leaky (close in try) (0 bytes on disk when the program failed) ---
+--- manual try/catch/finally (36 bytes on disk when the program failed) ---
+store1.csv,421.00
+store2.csv,545.00
+--- try-with-resources (36 bytes on disk when the program failed) ---
+store1.csv,421.00
+store2.csv,545.00
+--- never closed (0 bytes on disk when the program failed) ---

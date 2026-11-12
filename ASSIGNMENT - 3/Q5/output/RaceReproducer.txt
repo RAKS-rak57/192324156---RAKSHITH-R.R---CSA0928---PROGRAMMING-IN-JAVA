@@ -1,0 +1,8 @@
+$ java -cp out RaceReproducer
+Each trial: 8 customers press 'book' for the SAME seat at the same moment. A trial with granted > 1 is a DOUBLE BOOKING.
+strategy                           batch1   batch2   batch3   batch4   batch5   | total/2500 max granted 
+unsynchronized (natural race)      0        0        0        0        0        | 0          1           
+unsynchronized (window widened)    499      499      500      500      500      | 2498       8           
+synchronized method                0        0        0        0        0        | 0          1           
+synchronized block                 0        0        0        0        0        | 0          1           
+(numbers are double bookings per 500 trials)

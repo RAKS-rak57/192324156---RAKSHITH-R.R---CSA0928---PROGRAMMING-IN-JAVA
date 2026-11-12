@@ -1,0 +1,12 @@
+digraph G { rankdir=TB; node [shape=box, fontname="Helvetica", fontsize=11, style="filled,rounded", fillcolor="#F4F7FB"]; edge [arrowhead=none];
+ labelloc=t; label="Task 2 - containment hierarchy of the appointment window"; fontname="Helvetica-Bold";
+ f [label="AppointmentWindow (JFrame)\nWindowListener: windowClosing", fillcolor="#DDE8F7"];
+ p [label="AppointmentPanel (JPanel, BorderLayout)", fillcolor="#DDE8F7"];
+ form [label="form (JPanel, GridLayout 4 x 2)"]; south [label="south (JPanel, BorderLayout)"];
+ l1 [label="JLabel Patient ID"]; t1 [label="JTextField patientId\nDocumentListener", fillcolor="#FFF2CC"];
+ l2 [label="JLabel Department"]; c1 [label="JComboBox departmentBox\nItemListener", fillcolor="#FFF2CC"];
+ l3 [label="JLabel Doctor"]; c2 [label="JComboBox doctorBox"]; l4 [label="JLabel Time slot"]; c3 [label="JComboBox slotBox"];
+ row [label="buttonRow (JPanel, FlowLayout)"]; b [label="JButton Book appointment\nActionListener", fillcolor="#FFF2CC"]; st [label="JLabel status"];
+ f -> p; p -> form; p -> south; form -> l1; form -> t1; form -> l2; form -> c1; form -> l3; form -> c2; form -> l4; form -> c3;
+ south -> row; row -> b; south -> st;
+}

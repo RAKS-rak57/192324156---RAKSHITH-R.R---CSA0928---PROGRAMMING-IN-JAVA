@@ -1,0 +1,16 @@
+digraph G { rankdir=TB; node [shape=record, fontname="Helvetica", fontsize=10, style=filled, fillcolor="#F4F7FB"]; edge [fontname="Helvetica", fontsize=9];
+ labelloc=t; label="Task 6 - class diagram: user interface, service and data-access (JDBC) layers"; fontname="Helvetica-Bold";
+ mf [label="{MainFrame (JFrame)|- cards : CardLayout|- menuBar : JMenuBar|+ showScreen(name)|~ requestExit()|- exportCsv()}", fillcolor="#DDE8F7"];
+ rp [label="{RegisterPanel (JPanel)|- regNo, name, email : JTextField|- eventBox : JComboBox|+ register() [SwingWorker]|+ isBusy()}", fillcolor="#DDE8F7"];
+ lp [label="{RegistrationsPanel (JPanel)|- table : JTable|- filterBox : JComboBox|- prev, next, refresh : JButton|+ load(pageNo) [SwingWorker]}", fillcolor="#DDE8F7"];
+ sv [label="{RegistrationService|+ events() : List|+ register(regNo, name, email, event) : ServiceResult|+ loadPage(filter, pageNo, size) : PageData|+ exportCsv(file, filter) : int}", fillcolor="#E2F0D9"];
+ di [label="{\<\<interface\>\> RegistrationDao|+ findEvents()|+ exists(regNo, eventId)|+ register(student, eventId)|+ count(eventId)|+ page(eventId, limit, offset)|+ findAll(eventId)}", fillcolor="#FFF2CC"];
+ jd [label="{JdbcRegistrationDao|- url, user, password|PreparedStatement, transaction,\nSQL error 1062 = duplicate}", fillcolor="#FFF2CC"];
+ md [label="{InMemoryRegistrationDao|lists + HashSet key\n(demo, tests, benchmarks)}", fillcolor="#FFF2CC"];
+ m1 [label="{Student|regNo, name, email}"]; m2 [label="{CampusEvent|id, title, venue, date}"]; m3 [label="{RegistrationRow|regId, regNo, studentName,\neventTitle, registeredOn}"]; m4 [label="{PageData|rows, totalRows, pageNo, pageCount}"];
+ ex [label="{DuplicateRegistrationException|(checked)}"]; ex2 [label="{DataAccessException|(runtime)}"];
+ mf -> rp [label="1"]; mf -> lp [label="1"]; rp -> sv [label="uses"]; lp -> sv [label="uses"]; mf -> sv [label="uses"];
+ sv -> di [label="uses"]; jd -> di [arrowhead=empty, style=dashed]; md -> di [arrowhead=empty, style=dashed];
+ di -> ex [style=dotted, label="throws"]; di -> ex2 [style=dotted, label="throws"];
+ sv -> m4 [style=dotted]; di -> m1 [style=dotted]; di -> m2 [style=dotted]; di -> m3 [style=dotted];
+}

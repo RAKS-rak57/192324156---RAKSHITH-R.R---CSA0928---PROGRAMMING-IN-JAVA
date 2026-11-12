@@ -1,0 +1,6 @@
+digraph G { rankdir=LR; node [shape=box, fontname="Helvetica", fontsize=11, style="filled,rounded", fillcolor="#F4F7FB"]; edge [fontname="Helvetica", fontsize=10];
+ labelloc=t; label="Task 6 - screen flow and menu structure"; fontname="Helvetica-Bold";
+ start [label="start", shape=circle, fillcolor="#E2F0D9"]; reg [label="Register screen\nform + Register / Clear", fillcolor="#DDE8F7"]; list [label="Registrations screen\nJTable, filter, Prev / Next, Refresh", fillcolor="#DDE8F7"];
+ exp [label="File > Export CSV...\n(JFileChooser, SwingWorker)", fillcolor="#FFF2CC"]; about [label="Help > About\n(JOptionPane)", fillcolor="#FFF2CC"]; ex [label="File > Exit / close button\n(ask if work is running)", fillcolor="#F8CBAD"];
+ start -> reg; reg -> list [label="View menu / after a registration"]; list -> reg [label="View menu"]; list -> exp; reg -> about; list -> about; reg -> ex; list -> ex;
+}

@@ -1,0 +1,16 @@
+=== 1. Original DrawPadBuggy: 5 mouse clicks sent to the window ===
+count = 0      label = "Clicks: 0"
+methods declared by the listener class : [mouseclicked]
+listener overrides mouseClicked(MouseEvent) : false  -> the inherited empty method of MouseAdapter runs
+
+=== 2. Spelling fixed, dots drawn with getGraphics() ===
+after 5 clicks              : count = 5, label = "Clicks: 5", dots on screen = 5
+after minimise + restore    : paint() runs again; Frame.paint knows nothing about the dots -> dots on screen = 0, label still "Clicks: 5"
+
+=== 3. Completed DrawPad (TODO 1 and TODO 2) ===
+after 5 clicks              : clickCount() = 5, dots painted from the stored points
+after minimise + restore    : paint() draws the stored points again -> still 5 dots, same picture
+one more click              : clickCount() = 6
+
+=== 4. DrawPadBuffered (off-screen image) ===
+after 5 clicks              : clickCount() = 5

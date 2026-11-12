@@ -1,0 +1,25 @@
+$ java -cp out BookingBenchmark
+processors = 1, client threads = 8
+
+=== 1. 10,000 bookings over 1,000 seats (so every seat is requested 10 times). Time in ms, best of 5. ===
+strategy                   no external work       100 us external work/booking seats sold (must be 1000)
+synchronized method        0.4                    1660.5                     1000 / 1000
+synchronized block         0.4                    203.8                      1000 / 1000
+ReentrantLock              0.5                    205.2                      1000 / 1000
+AtomicBoolean[] CAS        0.3                    205.5                      1000 / 1000
+ConcurrentHashMap          0.6                    205.0                      1000 / 1000
+(synchronized method holds the lock during the external work; every other strategy does it outside the lock)
+
+=== 2. Time per booking under contention (ns, 400,000 attempts, 8 threads, best of 5) ===
+strategy                   HOT: 10 seats              SPREAD: 100,000 seats     
+synchronized method        15                         14                        
+synchronized block         14                         17                        
+ReentrantLock              23                         23                        
+AtomicBoolean[] CAS        8                          12                        
+ConcurrentHashMap          10                         66                        
+
+=== 3. Extra space for s = 200,000 seats (bytes per seat, measured) ===
+boolean[] (any lock-based version) : 1.0 bytes/seat  (+ one lock object, O(1))
+AtomicBoolean[]                    : 20.0 bytes/seat  (one AtomicBoolean object per seat)
+ConcurrentHashMap (all seats sold) : 58.5 bytes/seat  (Node + Integer key + table slot)
+keep-alive true

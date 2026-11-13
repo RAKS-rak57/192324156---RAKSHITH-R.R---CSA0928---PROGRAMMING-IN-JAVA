@@ -1,0 +1,15 @@
+=== 12 campuses, N = 800,000 passes ===
+
+(A) ONE TEXT FILE
+    file size 54,558,528 bytes | write 3244 ms | find(last pass) 781 ms | list one route (20000 passes) 895 ms
+
+(B) ONE SERIALIZED FILE PER CAMPUS (12 files, each file read by one campus program)
+    total size 63,594,628 bytes | write all 2814 ms | LOAD all 12 files 2684 ms | heap needed 216 MB
+    search ALL passes for one id (scan the 12 lists in memory) 51.1 ms | one route 10.8 ms (20000 passes)
+    with an extra HashMap index: build 112 ms, +25 MB heap, then 1409 ns per lookup
+
+(C) ONE DATABASE (table bus_pass_full, campus_id column)
+    load all rows (batches of 1,000, one transaction) 3390 ms | database size 65,073,152 bytes (87,486,464 with indexes, index build 638 ms)
+    find one pass by pass_id (PRIMARY KEY index) 0.025 ms | by reg_no WITHOUT index 51.9 ms | by reg_no WITH index 0.006 ms
+    list one route (20,000 rows) 163 ms (with index on route_no) | count of one campus (66,667) 58 ms
+(checksum 2256024)

@@ -1,0 +1,9 @@
+digraph G { rankdir=LR; node [shape=box, style="rounded,filled", fontname="Helvetica", fontsize=10]; edge [fontname="Helvetica", fontsize=9];
+ labelloc=t; label="A5 - Transfer Rs.500: one transaction against two auto-committed statements"; fontname="Helvetica-Bold";
+ subgraph cluster_t { label="ONE transaction (setAutoCommit(false))"; style=rounded;
+   t0 [label="begin", fillcolor="#DDE8F7"]; t1 [label="UPDATE hostel\nbalance - 500\n(not yet permanent)", fillcolor="#FFF2CC"]; tx [label="CRASH / exception", fillcolor="#F8CBAD"]; t2 [label="UPDATE canteen\nbalance + 500", fillcolor="#FFF2CC"]; tc [label="commit()\nboth permanent", fillcolor="#E2F0D9"]; tr [label="rollback()\nneither change kept", fillcolor="#E2F0D9"];
+   t0 -> t1 -> t2 -> tc; t1 -> tx [style=dashed, color="#C00000"]; tx -> tr; }
+ subgraph cluster_a { label="TWO auto-commit statements"; style=rounded;
+   a1 [label="UPDATE hostel\nbalance - 500\nCOMMITTED at once", fillcolor="#F8CBAD"]; ax [label="CRASH / exception", fillcolor="#F8CBAD"]; a2 [label="UPDATE canteen\n(never runs)", fillcolor="#EEEEEE"]; ar [label="Rs.500 is LOST\n(measured: total 1050 -> 750)", fillcolor="#F8CBAD"];
+   a1 -> ax [style=dashed, color="#C00000"]; ax -> a2 [style=dotted]; ax -> ar; }
+}

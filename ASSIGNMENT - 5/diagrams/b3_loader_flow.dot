@@ -1,0 +1,5 @@
+digraph G { rankdir=TB; node [shape=box, style="rounded,filled", fontname="Helvetica", fontsize=10]; edge [fontname="Helvetica", fontsize=9];
+ labelloc=t; label="B3 - PassLoader.loadAll(): one transaction, batches of 1,000"; fontname="Helvetica-Bold";
+ s [label="setAutoCommit(false)", fillcolor="#DDE8F7"]; l [label="for each pass:\nsetString/setInt/setDouble, addBatch()\nevery 1,000 rows: executeBatch()", fillcolor="#FFF2CC"]; e [label="executeBatch() (the rest)", fillcolor="#FFF2CC"]; c [label="TODO 2: commit()\nreturn n", fillcolor="#E2F0D9"]; r [label="TODO 3: rollback()\nre-throw the exception", fillcolor="#F8CBAD"]; f [label="finally: setAutoCommit(old value)", fillcolor="#DDE8F7"];
+ s -> l -> e -> c -> f; l -> r [label="NumberFormatException / SQLException", style=dashed, color="#C00000", fontcolor="#C00000"]; e -> r [style=dashed, color="#C00000"]; r -> f;
+}

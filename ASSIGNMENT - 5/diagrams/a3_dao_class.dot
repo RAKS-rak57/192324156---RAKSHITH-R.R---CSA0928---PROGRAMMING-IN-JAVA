@@ -1,0 +1,7 @@
+digraph G { rankdir=BT; node [shape=record, fontname="Helvetica", fontsize=10, style=filled, fillcolor="#F4F7FB"]; edge [fontname="Helvetica", fontsize=9];
+ labelloc=t; label="A3.2 - Generic data-access design"; fontname="Helvetica-Bold";
+ dao [label="{\<\<interface\>\> Dao\<T, K\>|+ insert(T)|+ findById(K) : T|+ findAll() : List\<T\>|+ update(T) : int|+ delete(K) : int}", fillcolor="#FFF2CC"];
+ abs [label="{AbstractJdbcDao\<T, K\> (template)|- connections : ConnectionFactory|# query(...), execute(...)  [open, prepare, bind, run, map, close]|# insertSql(), bindInsert(), selectByIdSql(), ...|# mapRow(ResultSet) : T}", fillcolor="#E2F0D9"];
+ s [label="{StudentDao|SQL for table student|mapRow -\> Student}", fillcolor="#DDE8F7"]; c [label="{CourseDao|SQL for table course|mapRow -\> Course}", fillcolor="#DDE8F7"]; m [label="{MarksDao|SQL for table marks|mapRow -\> Mark}", fillcolor="#DDE8F7"];
+ abs -> dao [arrowhead=empty, style=dashed, label="implements"]; s -> abs [arrowhead=empty, label="extends"]; c -> abs [arrowhead=empty]; m -> abs [arrowhead=empty];
+}

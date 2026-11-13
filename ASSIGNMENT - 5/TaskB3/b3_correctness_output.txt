@@ -1,0 +1,21 @@
+=== Statement (string-built SQL) ===
+  columns: pass_id VARCHAR(10) (java.sql.Types.VARCHAR), reg_no VARCHAR(12) (java.sql.Types.VARCHAR), name VARCHAR(60) (java.sql.Types.VARCHAR), route_no INT (java.sql.Types.INTEGER), amount DECIMAL(8,2) (java.sql.Types.DECIMAL)
+  row 1: P100000, 190000000, Student Name 0, 1, 3000.5
+  row 2: P100001, 190000001, Student Name 1, 2, 3001.5
+  row 3: P100002, 190000002, Student Name 2, 3, 3002.5
+  PASS: 10 rows found, every field equals the source value = true
+=== PreparedStatement ===
+  columns: pass_id VARCHAR(10) (java.sql.Types.VARCHAR), reg_no VARCHAR(12) (java.sql.Types.VARCHAR), name VARCHAR(60) (java.sql.Types.VARCHAR), route_no INT (java.sql.Types.INTEGER), amount DECIMAL(8,2) (java.sql.Types.DECIMAL)
+  row 1: P100000, 190000000, Student Name 0, 1, 3000.5
+  row 2: P100001, 190000001, Student Name 1, 2, 3001.5
+  row 3: P100002, 190000002, Student Name 2, 3, 3002.5
+  PASS: 10 rows found, every field equals the source value = true
+   PassLoader.loadAll returned 10 and auto-commit is back to true
+=== PassLoader (batch + transaction, completed TODOs) ===
+  columns: pass_id VARCHAR(10) (java.sql.Types.VARCHAR), reg_no VARCHAR(12) (java.sql.Types.VARCHAR), name VARCHAR(60) (java.sql.Types.VARCHAR), route_no INT (java.sql.Types.INTEGER), amount DECIMAL(8,2) (java.sql.Types.DECIMAL)
+  row 1: P100000, 190000000, Student Name 0, 1, 3000.5
+  row 2: P100001, 190000001, Student Name 1, 2, 3001.5
+  row 3: P100002, 190000002, Student Name 2, 3, 3002.5
+  PASS: 10 rows found, every field equals the source value = true
+
+Result: 3 passed, 0 failed

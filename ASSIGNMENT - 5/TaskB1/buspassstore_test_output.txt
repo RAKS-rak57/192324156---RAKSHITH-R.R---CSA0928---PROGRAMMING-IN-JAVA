@@ -1,0 +1,27 @@
+=== B1.1 Test table (what each test verifies is in the text of the report) ===
+PASS T0   find() on a missing file                             returns null, no exception: a missing file = empty store
+PASS T1   NORMAL: add 4 passes, find P1002                     P1002 192311002 Divya route 7 Main Gate valid 2027-06-30 Rs.4500.0
+PASS T2   NORMAL: name with a comma survives                   stored line: P1003,192311003,Kumar\, Meena,12,Main Gate,2027-06-30,4500.00,6717420c
+PASS T3   NORMAL: name with a backslash survives               P1004 192311004 A\B route 9 Main Gate valid 2027-06-30 Rs.4500.0
+PASS T4   NORMAL: list route 12 gives 2 passes                 P1001, P1003
+PASS T5   NOT FOUND: find("P9999") returns null                no exception
+PASS T6   duplicate pass id is rejected                        IOException: pass id already exists
+
+=== damaged data: five bad lines are put between good ones ===
+PASS T7   DAMAGED lines do not stop the search                 P2000 found after 5 bad lines
+     damaged lines reported by the scan:
+       line 5: expected 8 fields but found 3
+       line 6: not a number: For input string: "abc"
+       line 7: empty line
+       line 8: checksum mismatch (line changed or cut off)
+     (find() stops at P2000, so the cut-off last line was not reached yet; now a FULL scan:)
+       line 5: expected 8 fields but found 3
+       line 6: not a number: For input string: "abc"
+       line 7: empty line
+       line 8: checksum mismatch (line changed or cut off)
+       line 10: checksum mismatch (line changed or cut off)
+PASS T8   full scan reports exactly the 5 damaged lines        5 reported, the last one is the cut-off line 10
+PASS T9   good records before the damage are still found       P1001 found
+PASS T10  add after a cut-off last line does not glue records  newline repaired before appending
+
+Result: 11 passed, 0 failed

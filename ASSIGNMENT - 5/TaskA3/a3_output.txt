@@ -1,0 +1,25 @@
+=== A3.2 One generic design, three entities ===
+findById(192311002)      : 192311002 Divya <divya@example.com> year 3
+findById(000000000)      : null   (no such row)
+update Arun's year       : rows changed = 1
+findAll()                : [192311001 Arun <arun@example.com> year 3, 192311002 Divya <divya@example.com> year 3]
+delete(192311002)        : rows deleted = 1, remaining = 1
+CourseDao.findAll()      : [CSA09 Programming in Java (4 credits)]
+MarksDao.findAll()       : [#1 192311001 CSA09 = 88, #2 192311001 CSA10 = 76]
+
+=== Alternative: SQL written inside service / GUI classes ===
+ScatteredStudentService.find(192311001) : 192311001 Arun <arun@example.com> year 3   (same result)
+
+=== Rename a column of the student table: SQL statements that mention the table, and in how many classes ===
+  generic DAO design : StudentDao.java -> 5 statement(s) on the student table
+  scattered design   : ScatteredStudentService.java -> 2 statement(s) on the student table
+  scattered design   : ScatteredReportScreen.java -> 1 statement(s) on the student table
+  scattered design   : ScatteredRegistrationScreen.java -> 2 statement(s) on the student table
+  scattered design   : ScatteredMarksService.java -> 1 statement(s) on the student table
+  generic DAO : 5 statements, all in 1 class (StudentDao)
+  scattered   : 6 statements spread over 4 classes (every service / screen that touches the table)
+
+=== Cost per findById (new connection each time, as in the original StudentDB class) ===
+generic Dao<Student,String>.findById : 60.0 microseconds per call, 3,798 bytes allocated per call
+SQL inside the service class         : 73.7 microseconds per call, 2,848 bytes allocated per call
+(checksum 30600)

@@ -1,0 +1,6 @@
+version 1 (no phone field): wrote fixed_v1.ser and implicit_v1.ser
+computed serialVersionUID of ResidentImplicit v1 = 2510292752369857995
+version 2 (class now has a phone field) reads the OLD files:
+computed serialVersionUID of ResidentImplicit v2 = 1544415746870410737
+  explicit serialVersionUID = 1L : OK  -> name=Arun, regNo=192311001, phone=null   (new field gets its default value)
+  no serialVersionUID           : InvalidClassException -> ResidentImplicit; local class incompatible: stream classdesc serialVersionUID = 2510292752369857995, local class serialVersionUID = 1544415746870410737

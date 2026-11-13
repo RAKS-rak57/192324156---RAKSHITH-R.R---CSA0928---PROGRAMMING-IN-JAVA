@@ -1,0 +1,13 @@
+=== Multi-row INSERT against addBatch (one transaction each, database in /tmp) ===
+     rows approach                          time (ms)     us per row client bytes / row
+   10,000 addBatch, batches of 1,000             69.6           6.96                653
+   10,000 multi-row INSERT, b = 100              53.4           5.34                669
+   10,000 multi-row INSERT, b = 500              69.6           6.96                689
+   10,000 PreparedStatement per row              84.2           8.42                608
+  100,000 addBatch, batches of 1,000            311.2           3.11                652
+  100,000 multi-row INSERT, b = 100             230.1           2.30                667
+  100,000 multi-row INSERT, b = 500             224.2           2.24                684
+  100,000 PreparedStatement per row             231.2           2.31                608
+
+SQL text of ONE multi-row statement with b = 500 rows: 8567 characters (17134 bytes as a Java String), 2,500 parameters
+LOAD DATA (MySQL only, not available in this test engine):  LOAD DATA LOCAL INFILE 'passes.csv' INTO TABLE bus_pass FIELDS TERMINATED BY ',' LINES TERMINATED BY '\n';

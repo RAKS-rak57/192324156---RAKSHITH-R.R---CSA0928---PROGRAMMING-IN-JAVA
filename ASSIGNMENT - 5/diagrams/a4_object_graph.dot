@@ -1,0 +1,9 @@
+digraph G { rankdir=TB; node [shape=record, fontname="Helvetica", fontsize=10, style=filled, fillcolor="#F4F7FB"]; edge [fontname="Helvetica", fontsize=9];
+ labelloc=t; label="A4.1 - Serializing ONE Hostel object writes the whole reachable object graph"; fontname="Helvetica-Bold";
+ h [label="{Hostel|name = Block A}", fillcolor="#DDE8F7"]; r1 [label="{Room 101}", fillcolor="#DDE8F7"]; r2 [label="{Room 102}", fillcolor="#DDE8F7"];
+ a [label="{Resident Arun|name, regNo : written|password : transient (NOT written)|conn : transient (NOT written)}", fillcolor="#E2F0D9"];
+ d [label="{Resident Divya|name, regNo : written|password, conn : transient}", fillcolor="#E2F0D9"];
+ conn [label="{java.sql.Connection|NOT Serializable}", fillcolor="#F8CBAD"];
+ h -> r1 [label="rooms"]; h -> r2 [label="rooms"]; r1 -> a [label="residents"]; r1 -> d [label="residents"]; r2 -> a [label="same object, written ONCE", color="#C00000", fontcolor="#C00000"];
+ a -> conn [style=dashed, color="#C00000", label="skipped (transient)", fontcolor="#C00000"]; d -> conn [style=dashed, color="#C00000"];
+}

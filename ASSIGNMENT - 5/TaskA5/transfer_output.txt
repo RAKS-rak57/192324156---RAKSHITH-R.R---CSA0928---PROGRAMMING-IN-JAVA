@@ -1,0 +1,26 @@
+=== A5.3 Transfer Rs.300 from the hostel wallet to the canteen wallet ===
+1. transaction, no failure                                
+    before: hostel=1000.00 canteen=50.00 total=1050.00
+    error : none
+    after : hostel=700.00 canteen=350.00 total=1050.00
+2. TRANSACTION, crash between the two updates             
+    before: hostel=1000.00 canteen=50.00 total=1050.00
+    error : IllegalStateException: simulated crash between the two updates
+    after : hostel=1000.00 canteen=50.00 total=1050.00
+3. AUTO-COMMIT, crash between the two updates (debit first)
+    before: hostel=1000.00 canteen=50.00 total=1050.00
+    error : IllegalStateException: simulated crash between the two updates
+    after : hostel=700.00 canteen=50.00 total=750.00
+4. AUTO-COMMIT, credit first, then the debit fails (balance too low: 2,000)
+    before: hostel=1000.00 canteen=50.00 total=1050.00
+    error : SQLIntegrityConstraintViolationException: CHECK constraint failed: balance >= 0
+    after : hostel=1000.00 canteen=2050.00 total=3050.00
+5. TRANSACTION, credit first, then the debit fails (balance too low: 2,000)
+    before: hostel=1000.00 canteen=50.00 total=1050.00
+    error : SQLIntegrityConstraintViolationException: CHECK constraint failed: balance >= 0
+    after : hostel=1000.00 canteen=50.00 total=1050.00
+
+=== Cost: 2,000 transfers of Rs.1 (database on disk, every commit is made durable) ===
+one transaction per transfer (1 commit)     : 1599.6 ms in total, 800 us per transfer
+two auto-committed updates (2 commits)      : 2767.3 ms in total, 1384 us per transfer
+ratio auto-commit / transaction             : 1.73

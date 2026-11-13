@@ -1,0 +1,22 @@
+=== B1.3 Count the lines of an attendance log (time = best of the runs, in milliseconds) ===
+   size        bytes method                    time (ms)       read calls      lines
+    1 MB    1,048,575 unbuffered read()             286.6        1,048,576     31,775
+    1 MB    1,048,575 BufferedInputStream            20.3              129     31,775
+    1 MB    1,048,575 byte[64 KB] buffer              0.9               17     31,775
+    1 MB    1,048,575 BufferedReader                  2.5    (not counted)     31,775
+    1 MB    1,048,575 Files.readAllLines              2.4    (not counted)     31,775
+   10 MB   10,485,750 unbuffered read()            2885.8       10,485,751    317,750
+   10 MB   10,485,750 BufferedInputStream           221.1            1,281    317,750
+   10 MB   10,485,750 byte[64 KB] buffer              3.6              161    317,750
+   10 MB   10,485,750 BufferedReader                 20.5    (not counted)    317,750
+   10 MB   10,485,750 Files.readAllLines             25.4    (not counted)    317,750
+   50 MB   52,428,783 unbuffered read()           16214.8       52,428,784  1,588,751
+   50 MB   52,428,783 BufferedInputStream          1067.7            6,401  1,588,751
+   50 MB   52,428,783 byte[64 KB] buffer             21.4              801  1,588,751
+   50 MB   52,428,783 BufferedReader                 64.5    (not counted)  1,588,751
+   50 MB   52,428,783 Files.readAllLines            123.7    (not counted)  1,588,751
+
+=== A2.3 When buffering gives little or no benefit (10 MB file, best of 5) ===
+(a) reads of 64 KB blocks: FileInputStream 0.8 ms (161 calls)  |  wrapped in BufferedInputStream 0.9 ms (161 calls)
+(b) data already in memory (ByteArrayInputStream, byte by byte): plain 255.5 ms  |  buffered 210.8 ms
+(checksum 0)

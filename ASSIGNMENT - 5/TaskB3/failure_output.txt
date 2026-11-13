@@ -1,0 +1,20 @@
+=== Failure 1: row 500 of 1,000 has a non-numeric amount ("abc") ===
+   PassLoader: one transaction, batches of 1,000        -> NumberFormatException: For input string: "abc"
+      rows left in the table: 0   (auto-commit mode afterwards: true)
+   auto-commit, one PreparedStatement per row           -> NumberFormatException: For input string: "abc"
+      rows left in the table: 500   (auto-commit mode afterwards: true)
+   auto-commit, batches of 100                          -> NumberFormatException: For input string: "abc"
+      rows left in the table: 500   (auto-commit mode afterwards: true)
+
+=== Failure 2: row 500 of 1,000 repeats the pass id of row 10 (the DATABASE rejects it) ===
+   PassLoader: one transaction, batches of 1,000        -> SQLIntegrityConstraintViolationException: UNIQUE constraint failed: bus_pass.pass_id
+      rows left in the table: 0   (auto-commit mode afterwards: true)
+   auto-commit, one PreparedStatement per row           -> SQLIntegrityConstraintViolationException: UNIQUE constraint failed: bus_pass.pass_id
+      rows left in the table: 500   (auto-commit mode afterwards: true)
+   auto-commit, batches of 100                          -> SQLIntegrityConstraintViolationException: UNIQUE constraint failed: bus_pass.pass_id
+      rows left in the table: 500   (auto-commit mode afterwards: true)
+
+=== Control: no failure ===
+      loaded 1000 rows
+   PassLoader with 1,000 valid rows                     -> none
+      rows left in the table: 1000   (auto-commit mode afterwards: true)

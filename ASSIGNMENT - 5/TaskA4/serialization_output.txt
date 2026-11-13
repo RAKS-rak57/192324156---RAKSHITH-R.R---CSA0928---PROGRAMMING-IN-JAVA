@@ -1,0 +1,13 @@
+=== 1. Serialize the Hostel (one writeObject call) ===
+bytes written: 341
+hostel name after reading : Block A, rooms = 2
+  room 101 -> [Arun(192311001, pwd=null, conn=null), Divya(192311002, pwd=null, conn=null)]
+  room 102 -> [Arun(192311001, pwd=null, conn=null)]
+transient fields after reading: password = null, conn = null   (not stored, reset to null)
+Arun in room 101 and Arun in room 102 are the same object after reading? true   (a shared reference is written once and shared again)
+-> writeObject(hostel) also wrote ALL reachable objects: 1 Hostel, 2 Rooms and 2 distinct Residents (3 references).
+password visible in the file bytes? false
+
+=== 2. The wrong design: a live Connection that is not transient ===
+NotSerializableException: SerializationDemo$$Lambda/0x00007f770c000a08
+with conn = null the same class is written, but the password IS in the file: true

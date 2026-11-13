@@ -1,0 +1,3 @@
+=== Insert n passes (database file in /tmp), time in milliseconds ===
+     rows approach               commit mode        total (ms)     us per row
+  100,000 Prepared+Batch(1000)   auto-commit           82087.4         820.87

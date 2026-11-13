@@ -1,0 +1,9 @@
+digraph G { rankdir=LR; node [shape=box, style="rounded,filled", fontname="Helvetica", fontsize=11]; edge [fontname="Helvetica", fontsize=10];
+ labelloc=t; label="A2 - Number of operating-system reads for a 50 MB file"; fontname="Helvetica-Bold";
+ subgraph cluster_a { label="Original: FileInputStream.read() one byte at a time"; style=rounded;
+   p1 [label="program\nread() x 52,428,784", fillcolor="#F8CBAD"]; f1 [label="FileInputStream", fillcolor="#DDE8F7"]; os1 [label="operating system\n52,428,784 reads of 1 byte", fillcolor="#F8CBAD"]; p1 -> f1 -> os1; }
+ subgraph cluster_b { label="Redesign: BufferedInputStream (8,192-byte buffer)"; style=rounded;
+   p2 [label="program\nread() x 52,428,784\n(served from the buffer)", fillcolor="#E2F0D9"]; b2 [label="BufferedInputStream\nbuffer 8,192 bytes", fillcolor="#FFF2CC"]; f2 [label="FileInputStream", fillcolor="#DDE8F7"]; os2 [label="operating system\n6,401 reads of 8 KB", fillcolor="#E2F0D9"]; p2 -> b2 -> f2 -> os2; }
+ subgraph cluster_c { label="Redesign: own byte[65536] buffer"; style=rounded;
+   p3 [label="program\nread(buf) x 801", fillcolor="#E2F0D9"]; f3 [label="FileInputStream", fillcolor="#DDE8F7"]; os3 [label="operating system\n801 reads of 64 KB", fillcolor="#E2F0D9"]; p3 -> f3 -> os3; }
+}

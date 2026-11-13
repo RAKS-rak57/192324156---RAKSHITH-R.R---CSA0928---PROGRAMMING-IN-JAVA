@@ -1,0 +1,7 @@
+digraph G { rankdir=LR; node [shape=box, style="rounded,filled", fontname="Helvetica", fontsize=10]; edge [fontname="Helvetica", fontsize=9];
+ labelloc=t; label="A5.2 - Why string concatenation is unsafe and how PreparedStatement separates code from data"; fontname="Helvetica-Bold";
+ subgraph cluster_u { label="UNSAFE: input becomes part of the SQL text"; style=rounded;
+   in1 [label="pwd = ' OR '1'='1", fillcolor="#F8CBAD"]; cat [label="\"... pwd='\" + pwd + \"'\"", fillcolor="#FFF2CC"]; sql1 [label="SELECT * FROM users WHERE id='x' AND pwd='' OR '1'='1'", fillcolor="#F8CBAD"]; db1 [label="database parses the\nattacker's text as SQL\n-> every row matches", fillcolor="#F8CBAD"]; in1 -> cat -> sql1 -> db1; }
+ subgraph cluster_s { label="SAFE: PreparedStatement"; style=rounded;
+   sql2 [label="SELECT * FROM users\nWHERE id = ? AND pwd = ?\n(parsed first, fixed)", fillcolor="#E2F0D9"]; in2 [label="setString(2, \"' OR '1'='1\")\nsent as DATA", fillcolor="#DDE8F7"]; db2 [label="compared as an ordinary\ntext value -> no row", fillcolor="#E2F0D9"]; sql2 -> db2; in2 -> db2; }
+}

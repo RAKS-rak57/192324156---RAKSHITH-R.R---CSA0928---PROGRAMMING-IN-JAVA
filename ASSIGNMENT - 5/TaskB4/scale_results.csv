@@ -1,0 +1,15 @@
+design,measure,value,unit
+text file,size,54558528,bytes
+text file,find one pass,781.4,ms
+text file,list one route,895.4,ms
+per-campus serialization,size,63594628,bytes
+per-campus serialization,load all,2684.5,ms
+per-campus serialization,heap,216.3,MB
+per-campus serialization,search all for one id,51.1,ms
+per-campus serialization,list one route,10.8,ms
+database,size,65073152,bytes
+database,load all,3390.1,ms
+database,find by primary key,0.0252,ms
+database,find by reg_no without index,51.90,ms
+database,find by reg_no with index,0.0064,ms
+database,list one route,163.2,ms

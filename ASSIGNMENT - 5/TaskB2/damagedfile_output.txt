@@ -1,0 +1,29 @@
+=== The damaged file (11 lines) ===
+ 1 | P1001,192311001,Arun,12,Main Gate,2027-06-30,4500.00,1a06a4e3
+ 2 | P1100,192311100,Short
+ 3 | P1101,192311101,Kumar, Meena,12,Main Gate,2027-06-30,4500.00,f8866aaf
+ 4 | P1102,192311102,Ravi,3,Main Gate,2027-06-30,forty,29541469
+ 5 | P1103,192311103,Ravi,abc,Main Gate,2027-06-30,4500.00,265efdab
+ 6 | P1104,192311104,Ravi,3,Main Gate,2027-13-45,4500.00,a591a562
+ 7 | P1105,192311105,Ravi,3,Main Gate,2027-06-30,-50.00,5e905741
+ 8 | 
+ 9 | P1002,192311002,Divyaa,7,Bus Stand,2027-06-30,3800.00,cdc554fb
+10 | P1002,192311002,Divya,7,Bus Stand,2027-06-30,3800
+11 | P1003,192311003,Kavin,12,Main Gate,2027-06-30,4500.00,36146e7b
+
+=== Response of the store: list all passes of route 12 (a full scan) ===
+passes found : [P1001 192311001 Arun route 12 Main Gate valid 2027-06-30 Rs.4500.0, P1003 192311003 Kavin route 12 Main Gate valid 2027-06-30 Rs.4500.0]
+damaged lines reported (9):
+   line 2: expected 8 fields but found 3
+   line 3: expected 8 fields but found 9
+   line 4: not a number: For input string: "forty"
+   line 5: not a number: For input string: "abc"
+   line 6: bad validity date '2027-13-45'
+   line 7: amount must be positive: -50.00
+   line 8: empty line
+   line 9: checksum mismatch (line changed or cut off)
+   line 10: expected 8 fields but found 7
+
+what the damage reveals about the ORIGINAL design (5 fields, no checksum, String.split):
+   the original store would split  "P1101,192311101,Kumar, Meena,12,4500.0"  into 6 fields -> silently ignored, the pass is lost
+   with a non-numeric amount the original (no validation) would store it and fail later in Double.parseDouble

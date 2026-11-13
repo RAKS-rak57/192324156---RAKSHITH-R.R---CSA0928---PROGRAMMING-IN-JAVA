@@ -1,0 +1,48 @@
+Existing file: 8014 lines (8,000 good, 14 deliberately bad: 4 of them repeat an earlier pass id)
+
+=== B4.2 DatabaseMetaData report (before the migration) ===
+Database product  : SQLite (via MiniSqlite test driver)  version 3.45.1
+Driver            : MiniSqlite JDBC test driver (java.lang.foreign)  version 0.1
+Tables present    :
+   bus_pass_full  (TABLE)
+
+=== B4.1 Migration: batches of 1,000 inside one transaction ===
+lines read       : 8014
+loaded           : 8000
+failed validation: 14  (of which duplicate pass ids: 4)
+time             : 632 ms
+failure report, grouped by reason:
+     1 x amount must be positive: #
+     1 x bad validity date '..'
+     1 x checksum mismatch (line changed or cut off)
+     4 x duplicate pass id P#
+     1 x empty line
+     3 x expected # fields but found #
+     1 x name longer than # characters
+     2 x not a number: For input string: ".."
+failure report, line by line:
+   line 501: expected 8 fields but found 3   | P1500,192311500,Short
+   line 1202: not a number: For input string: "forty"   | P9001,192319001,Ravi,3,Main Gate,2027-06-30,forty,f55ad2a8
+   line 2003: not a number: For input string: "abc"   | P9002,192319002,Ravi,abc,Main Gate,2027-06-30,4500.00,34b8627e
+   line 3004: bad validity date '2027-13-45'   | P9003,192319003,Ravi,3,Main Gate,2027-13-45,4500.00,15b1858c
+   line 3505: empty line   | 
+   line 4006: checksum mismatch (line changed or cut off)   | P1011,190000010,Studant 10,11,Stop 10,2027-06-30,3010.00,b111102b
+   line 4507: amount must be positive: -50.00   | P9004,192319004,Ravi,3,Main Gate,2027-06-30,-50.00,bc2c33ec
+   line 5008: name longer than 60 characters   | P9005,192319005,NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN...
+   line 5509: duplicate pass id P1008   | P1008,190000007,Student 7,8,Stop 7,2027-06-30,3007.00,628bcf6f
+   line 6010: duplicate pass id P1009   | P1009,190000008,Student 8,9,Stop 8,2027-06-30,3008.00,d00c34c0
+   line 6511: duplicate pass id P1010   | P1010,190000009,Student 9,10,Stop 9,2027-06-30,3009.00,cf203d1a
+   line 7012: duplicate pass id P1011   | P1011,190000010,Student 10,11,Stop 10,2027-06-30,3010.00,b111102b
+   line 7513: expected 8 fields but found 9   | P9006,192319006,Kumar, Meena,3,Main Gate,2027-06-30,4500.00,69d27864
+   line 7914: expected 8 fields but found 6   | P1012,190000011,Student 11,12,Stop 11,20
+
+=== Verification: the database must contain exactly what was accepted ===
+rows in database = 8000 (expected 8000), distinct pass ids = 8000, sum of amounts = 3.1996E7 (expected 3.1996E7)
+PASS: file and database agree
+passes per route (routes 1-3): route 1 = 200   route 2 = 200   route 3 = 200   
+
+=== The same report AFTER the migration (tables present) ===
+Database product  : SQLite (via MiniSqlite test driver)  version 3.45.1
+Driver            : MiniSqlite JDBC test driver (java.lang.foreign)  version 0.1
+Tables present    :
+   bus_pass_full  (TABLE)

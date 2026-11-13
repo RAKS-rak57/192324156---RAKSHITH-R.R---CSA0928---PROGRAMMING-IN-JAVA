@@ -1,0 +1,8 @@
+digraph G { rankdir=LR; node [shape=box, style="rounded,filled", fontname="Helvetica", fontsize=10]; edge [fontname="Helvetica", fontsize=9];
+ labelloc=t; label="B4 - Recommended design: one shared database for 12 campuses and many counters"; fontname="Helvetica-Bold";
+ c1 [label="Campus 1\ncounters 1..n", fillcolor="#DDE8F7"]; c2 [label="Campus 2\ncounters 1..n", fillcolor="#DDE8F7"]; c12 [label="Campus 12\ncounters 1..n", fillcolor="#DDE8F7"];
+ app [label="pass-issue application\nPassService (validation)\nPassDao (PreparedStatement)", fillcolor="#E2F0D9"];
+ db [label="MySQL\nbus_pass_full + indexes\nAUTO_INCREMENT numbers\ntransactions, row locks", shape=cylinder, fillcolor="#FFF2CC"];
+ mig [label="nightly import\nMigration: batches + 1 transaction\n+ failure report", fillcolor="#E2F0D9"]; old [label="existing pass file", fillcolor="#EEEEEE"];
+ c1 -> app; c2 -> app; c12 -> app [label="  ..."]; app -> db [label="JDBC"]; old -> mig -> db;
+}

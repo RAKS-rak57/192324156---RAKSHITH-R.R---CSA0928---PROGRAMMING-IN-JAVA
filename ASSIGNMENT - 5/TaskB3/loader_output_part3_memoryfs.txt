@@ -1,0 +1,20 @@
+=== Insert n passes (database file in /dev/shm), time in milliseconds ===
+     rows approach               commit mode        total (ms)     us per row
+    1,000 Statement              auto-commit              75.8          75.83
+    1,000 Statement              one transaction           10.6          10.63
+    1,000 PreparedStatement      auto-commit              61.2          61.24
+    1,000 PreparedStatement      one transaction           10.5          10.47
+    1,000 Prepared+Batch(1000)   auto-commit              62.5          62.55
+    1,000 Prepared+Batch(1000)   one transaction            7.1           7.09
+   10,000 Statement              auto-commit             430.7          43.07
+   10,000 Statement              one transaction           75.7           7.57
+   10,000 PreparedStatement      auto-commit             649.8          64.98
+   10,000 PreparedStatement      one transaction           69.6           6.96
+   10,000 Prepared+Batch(1000)   auto-commit             395.1          39.51
+   10,000 Prepared+Batch(1000)   one transaction           38.5           3.85
+  100,000 Statement              auto-commit            3685.2          36.85
+  100,000 Statement              one transaction          806.5           8.06
+  100,000 PreparedStatement      auto-commit            2933.4          29.33
+  100,000 PreparedStatement      one transaction          272.4           2.72
+  100,000 Prepared+Batch(1000)   auto-commit            3134.1          31.34
+  100,000 Prepared+Batch(1000)   one transaction          279.5           2.79

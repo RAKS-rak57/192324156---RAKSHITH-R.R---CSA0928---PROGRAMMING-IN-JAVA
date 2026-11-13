@@ -1,0 +1,53 @@
+Test database: users = admin, arun, divya, obrien (passwords are test values only)
+
+=== 1. Normal behaviour (both versions must agree) ===
+ arun / secret123 :
+   unsafe                       accepted=true  ids=[arun]                    
+   PreparedStatement            accepted=true  ids=[arun]                    
+ arun / wrongpass :
+   unsafe                       accepted=false ids=[]                        
+   PreparedStatement            accepted=false ids=[]                        
+
+=== 2. Adversarial inputs (NO valid password is known in any of them) ===
+ A1  password = ' OR '1'='1     [id="x", pwd="' OR '1'='1"]
+   SQL built by the unsafe code: SELECT * FROM users WHERE id='x' AND pwd='' OR '1'='1'
+   unsafe                       accepted=true  ids=[admin, arun, divya, obrien]
+   PreparedStatement            accepted=false ids=[]                        
+ A2  id = arun' OR '1'='1     [id="arun' OR '1'='1", pwd="anything"]
+   SQL built by the unsafe code: SELECT * FROM users WHERE id='arun' OR '1'='1' AND pwd='anything'
+   unsafe                       accepted=true  ids=[arun]                    
+   PreparedStatement            accepted=false ids=[]                        
+ A3  id = admin' --  (comment)     [id="admin' -- ", pwd="anything"]
+   SQL built by the unsafe code: SELECT * FROM users WHERE id='admin' -- ' AND pwd='anything'
+   unsafe                       accepted=true  ids=[admin]                   
+   PreparedStatement            accepted=false ids=[]                        
+
+=== 3. The weaker fixes: escaping quotes and regular-expression validation ===
+ Attacks A1-A3 against the two weaker fixes:
+   escaped  A1                  accepted=false ids=[]                        
+   regex    A1                  accepted=false ids=[]                        
+   escaped  A2                  accepted=false ids=[]                        
+   regex    A2                  accepted=false ids=[]                        
+   escaped  A3                  accepted=false ids=[]                        
+   regex    A3                  accepted=false ids=[]                        
+ Numeric context (no quotes in the SQL, user_no = <input>), input "0 OR 1=1":
+   escaped quotes               accepted=true  ids=[admin, arun, divya, obrien]
+   SQL: SELECT * FROM users WHERE user_no = 0 OR 1=1
+ A legitimate user whose password contains an apostrophe (obrien / it's-me):
+   unsafe code raised: near "s": syntax error  [SELECT * FROM users WHERE id='obrien' AND pwd='it's-me']
+   unsafe (no protection)       accepted=false ids=[]                        
+   escaped quotes               accepted=true  ids=[obrien]                  
+   regex validation             accepted=false ids=[]                        
+   PreparedStatement            accepted=true  ids=[obrien]                  
+ Admin with a normal password containing # and !   (admin / Adm!n#2026):
+   regex validation             accepted=false ids=[]                        
+   PreparedStatement            accepted=true  ids=[admin]                   
+
+=== 4. Cost per login check (20,000 logins, microseconds per login, best of 5) ===
+   string-built Statement (unsafe)               11.24 us
+   escape quotes + Statement                      9.50 us
+   regex validate + Statement                     9.84 us
+   PreparedStatement, prepared every time        10.67 us
+   PreparedStatement, prepared ONCE               3.87 us
+   validation work alone: regex match 194 ns, quote escaping 38 ns
+(checksum 20507500)

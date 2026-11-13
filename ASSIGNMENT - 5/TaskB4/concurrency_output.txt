@@ -1,0 +1,11 @@
+=== 4 counters issue 500 passes each at the same moment (expected: 2000 passes, all numbers different) ===
+(1) text file, no coordination (run 1)
+      lines: 2000 | distinct pass numbers: 1981 | duplicate numbers: 19 | damaged lines: 0
+(1) text file, no coordination (run 2)
+      lines: 2000 | distinct pass numbers: 1990 | duplicate numbers: 10 | damaged lines: 0
+(1) text file, no coordination (run 3)
+      lines: 2000 | distinct pass numbers: 1999 | duplicate numbers: 1 | damaged lines: 0
+(2) text file + synchronized (ONE program only)
+      lines: 2000 | distinct pass numbers: 2000 | duplicate numbers: 0 | damaged lines: 0
+(3) database, each counter has its own connection and the DATABASE assigns the number
+      passes issued: 2000 | rows in the table: 2000 | distinct numbers: 2000 | duplicates: 0 | time 2092 ms
